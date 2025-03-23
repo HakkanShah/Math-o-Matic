@@ -117,7 +117,7 @@ body {
     opacity: 1;
 }
 
-/* Calculator Container */
+
 .calculator {
     background: var(--surface);
     width: 100%;
@@ -127,7 +127,6 @@ body {
     box-shadow: 0 12px 30px var(--shadow);
 }
 
-/* Display Container */
 .display-container {
     background: var(--surface);
     padding: 20px;
@@ -164,7 +163,6 @@ body {
     outline: none;
 }
 
-/* Tabs */
 .tabs {
     display: flex;
     background: var(--surface-variant);
@@ -187,7 +185,6 @@ body {
     background: var(--surface);
 }
 
-/* Buttons Container */
 .buttons-container {
     position: relative;
     height: 420px;
@@ -222,7 +219,6 @@ body {
     visibility: visible;
 }
 
-/* Button Styles */
 button {
     border: none;
     font-size: 24px;
@@ -234,28 +230,24 @@ button {
     justify-content: center;
 }
 
-/* Number buttons */
 .number-btn {
     background: var(--number-bg);
     color: var(--number-text);
     font-size: 28px;
 }
 
-/* Operator buttons */
 .operator-btn {
     background: var(--operator-bg);
     color: var(--operator-text);
     font-size: 28px;
 }
 
-/* Function buttons */
 .function-btn {
     background: var(--function-bg);
     color: var(--function-text);
     font-size: 22px;
 }
 
-/* Memory buttons */
 .memory-btn {
     background: var(--function-bg);
     color: var(--function-text);
@@ -263,7 +255,6 @@ button {
     font-weight: 500;
 }
 
-/* Clear buttons */
 .clear-btn {
     background: var(--function-bg);
     color: var(--function-text);
@@ -271,7 +262,6 @@ button {
     font-weight: 500;
 }
 
-/* Mode button */
 .mode-btn {
     background: var(--function-bg);
     color: var(--function-text);
@@ -279,7 +269,6 @@ button {
     font-weight: 500;
 }
 
-/* Equals button */
 .equals-btn {
     background: var(--operator-bg);
     color: var(--operator-text);
@@ -290,7 +279,6 @@ button:active {
     opacity: 0.7;
 }
 
-/* Memory Notification */
 .memory-notification {
     position: fixed;
     bottom: 20px;
@@ -312,7 +300,6 @@ button:active {
     100% { opacity: 0; transform: translate(-50%, -20px); }
 }
 
-/* Responsive Design */
 @media (max-width: 480px) {
     .calculator {
         max-width: 100%;
@@ -348,7 +335,6 @@ button:active {
     }
 }
 
-/* Animations */
 @keyframes slideIn {
     from {
         transform: translateY(20px);
@@ -363,8 +349,7 @@ button:active {
 .calculator {
     animation: slideIn 0.3s ease-out;
 }
-
-/* GitHub Link Styling */
+    
 .github-link {
     display: flex;
     align-items: center;

@@ -1,4 +1,3 @@
-// DOM Elements
 const display = document.querySelector('.display');
 const historyDisplay = document.querySelector('.history-display');
 const buttons = document.querySelectorAll('.buttons button');
@@ -9,7 +8,6 @@ const themeButton = document.getElementById('themeButton');
 const memoryStatus = document.querySelector('.memory-status');
 const radDegDisplay = document.querySelector('.rad-deg');
 
-// Calculator state
 let currentValue = '';
 let previousValue = '';
 let operation = null;
@@ -19,13 +17,11 @@ let isRadianMode = true;
 let expression = '';
 let isDarkMode = false;
 
-// Theme Toggle
 themeButton.addEventListener('click', () => {
     isDarkMode = !isDarkMode;
     document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
 });
 
-// Tab Switching
 tabButtons.forEach(tab => {
     tab.addEventListener('click', () => {
         tabButtons.forEach(t => t.classList.remove('active'));
@@ -41,7 +37,6 @@ tabButtons.forEach(tab => {
     });
 });
 
-// Add click event listener to each button
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         button.style.transform = 'scale(0.95)';
@@ -58,7 +53,6 @@ buttons.forEach(button => {
     });
 });
 
-// Handle number inputs
 function handleNumber(number) {
     if (shouldResetDisplay) {
         currentValue = '';
@@ -69,7 +63,6 @@ function handleNumber(number) {
     updateDisplay();
 }
 
-// Handle actions (operators, functions, etc.)
 function handleAction(action) {
     switch(action) {
         case 'AC':
@@ -173,7 +166,6 @@ function handleAction(action) {
     }
 }
 
-// Handle operators
 function handleOperator(operator) {
     if (currentValue === '') return;
     
@@ -189,7 +181,6 @@ function handleOperator(operator) {
     updateHistoryDisplay();
 }
 
-// Calculate result
 function calculate() {
     if (previousValue === '' || currentValue === '') return;
     
@@ -235,13 +226,11 @@ function calculate() {
     }
 }
 
-// Format result to avoid floating point issues
 function formatResult(number) {
     if (Number.isInteger(number)) return number;
     return Number(number.toFixed(10));
 }
 
-// Memory functions
 function memoryClear() {
     memoryValue = 0;
     updateMemoryStatus();
@@ -274,12 +263,10 @@ function memorySubtract() {
     }
 }
 
-// Update memory status indicator
 function updateMemoryStatus() {
     memoryStatus.textContent = memoryValue !== 0 ? 'M' : '';
 }
 
-// Scientific Functions
 function calculateTrig(func) {
     if (currentValue === '') return;
     const value = parseFloat(currentValue);
@@ -469,14 +456,12 @@ function insertRandom() {
     updateDisplay();
 }
 
-// Toggle between Radian and Degree mode
 function toggleRadianMode() {
     isRadianMode = !isRadianMode;
     radDegDisplay.textContent = isRadianMode ? 'RAD' : 'DEG';
     showMemoryNotification(isRadianMode ? 'Radian Mode' : 'Degree Mode');
 }
 
-// Basic Functions
 function clearAll() {
     currentValue = '';
     previousValue = '';
@@ -529,7 +514,6 @@ function insertE() {
     updateDisplay();
 }
 
-// Display Updates
 function updateDisplay() {
     display.value = currentValue || '0';
 }
@@ -542,7 +526,6 @@ function updateHistoryDisplay() {
     }
 }
 
-// Show notifications
 function showMemoryNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'memory-notification';
@@ -554,5 +537,4 @@ function showMemoryNotification(message) {
     }, 2000);
 }
 
-// Initialize
 updateMemoryStatus();
