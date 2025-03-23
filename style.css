@@ -1,33 +1,46 @@
 :root {
-    --primary: #1a73e8;
-    --primary-dark: #1557b0;
-    --text: #202124;
-    --text-secondary: #5f6368;
-    --background: #f8f9fa;
-    --surface: #ffffff;
-    --surface-variant: #f1f3f4;
-    --divider: #dadce0;
+    --primary: #FF9500;
+    --primary-dark: #EE8400;
+    --text: #000000;
+    --text-secondary: #666666;
+    --background: #F2F2F7;
+    --surface: #FFFFFF;
+    --surface-variant: #F9F9F9;
+    --divider: #E5E5EA;
     --shadow: rgba(0, 0, 0, 0.1);
+    --operator-bg: #FF9500;
+    --operator-text: #FFFFFF;
+    --function-bg: #D4D4D2;
+    --function-text: #1C1C1E;
+    --number-bg: #505050;
+    --number-text: #FFFFFF;
 }
 
 [data-theme="dark"] {
-    --primary: #8ab4f8;
-    --primary-dark: #aecbfa;
-    --text: #e8eaed;
-    --text-secondary: #9aa0a6;
-    --background: #202124;
-    --surface: #2d2e30;
-    --surface-variant: #3c4043;
-    --divider: #5f6368;
+    --primary: #FF9500;
+    --primary-dark: #FFB340;
+    --text: #FFFFFF;
+    --text-secondary: #98989E;
+    --background: #000000;
+    --surface: #1C1C1E;
+    --surface-variant: #2C2C2E;
+    --divider: #38383A;
     --shadow: rgba(0, 0, 0, 0.3);
+    --operator-bg: #FF9500;
+    --operator-text: #FFFFFF;
+    --function-bg: #505050;
+    --function-text: #FFFFFF;
+    --number-bg: #333333;
+    --number-text: #FFFFFF;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 body {
@@ -36,47 +49,89 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* Theme Toggle */
+/* Theme Toggle Switch */
 .theme-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
+    background: var(--surface);
+    padding: 4px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px var(--shadow);
 }
 
 .theme-toggle button {
-    background: none;
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: var(--surface-variant);
+    border-radius: 15px;
     border: none;
-    font-size: 24px;
     cursor: pointer;
-    padding: 8px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.theme-toggle button::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    background: var(--primary);
     border-radius: 50%;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 6px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle button::before {
+    left: calc(100% - 28px);
+}
+
+.theme-toggle .light,
+.theme-toggle .dark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle .light {
+    right: 8px;
+}
+
+.theme-toggle .dark {
+    left: 8px;
+    opacity: 0;
+}
+
+[data-theme="dark"] .theme-toggle .light {
+    opacity: 0;
+}
+
+[data-theme="dark"] .theme-toggle .dark {
+    opacity: 1;
 }
 
 /* Calculator Container */
 .calculator {
     background: var(--surface);
     width: 100%;
-    max-width: 400px;
-    border-radius: 24px;
+    max-width: 380px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 12px 24px var(--shadow);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    box-shadow: 0 12px 30px var(--shadow);
 }
 
 /* Display Container */
 .display-container {
-    background: var(--surface-variant);
-    padding: 24px;
-    height: 180px;
+    background: var(--surface);
+    padding: 20px;
+    height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -94,15 +149,15 @@ body {
     min-height: 24px;
     color: var(--text-secondary);
     text-align: right;
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 8px;
-    opacity: 0.8;
 }
 
 .display {
     width: 100%;
     border: none;
-    font-size: 40px;
+    font-size: 48px;
+    font-weight: 300;
     text-align: right;
     background: transparent;
     color: var(--text);
@@ -112,7 +167,7 @@ body {
 /* Tabs */
 .tabs {
     display: flex;
-    border-bottom: 1px solid var(--divider);
+    background: var(--surface-variant);
 }
 
 .tab-btn {
@@ -120,22 +175,22 @@ body {
     padding: 16px;
     border: none;
     background: none;
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 500;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .tab-btn.active {
     color: var(--primary);
-    border-bottom: 2px solid var(--primary);
+    background: var(--surface);
 }
 
 /* Buttons Container */
 .buttons-container {
     position: relative;
-    height: 400px;
+    height: 420px;
 }
 
 .buttons {
@@ -170,58 +225,69 @@ body {
 /* Button Styles */
 button {
     border: none;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 400;
     cursor: pointer;
-    background: var(--surface);
-    color: var(--text);
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    user-select: none;
 }
 
-button:hover {
-    background: var(--surface-variant);
+/* Number buttons */
+.number-btn {
+    background: var(--number-bg);
+    color: var(--number-text);
+    font-size: 28px;
+}
+
+/* Operator buttons */
+.operator-btn {
+    background: var(--operator-bg);
+    color: var(--operator-text);
+    font-size: 28px;
+}
+
+/* Function buttons */
+.function-btn {
+    background: var(--function-bg);
+    color: var(--function-text);
+    font-size: 22px;
+}
+
+/* Memory buttons */
+.memory-btn {
+    background: var(--function-bg);
+    color: var(--function-text);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Clear buttons */
+.clear-btn {
+    background: var(--function-bg);
+    color: var(--function-text);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* Mode button */
+.mode-btn {
+    background: var(--function-bg);
+    color: var(--function-text);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Equals button */
+.equals-btn {
+    background: var(--operator-bg);
+    color: var(--operator-text);
+    font-size: 32px;
 }
 
 button:active {
-    transform: scale(0.95);
-}
-
-.number-btn {
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.operator-btn {
-    color: var(--primary);
-    font-size: 20px;
-}
-
-.function-btn {
-    color: var(--primary);
-    font-size: 16px;
-}
-
-.memory-btn {
-    color: var(--primary);
-    font-size: 14px;
-}
-
-.clear-btn {
-    color: var(--primary);
-}
-
-.equals-btn {
-    background: var(--primary);
-    color: white;
-    font-weight: 600;
-}
-
-.equals-btn:hover {
-    background: var(--primary-dark);
+    opacity: 0.7;
 }
 
 /* Memory Notification */
@@ -230,13 +296,13 @@ button:active {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--surface);
-    color: var(--text);
+    background: rgba(0, 0, 0, 0.8);
+    color: #FFFFFF;
     padding: 12px 24px;
     border-radius: 20px;
-    font-size: 14px;
-    box-shadow: 0 4px 12px var(--shadow);
-    animation: fadeInOut 2s ease-in-out;
+    font-size: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 @keyframes fadeInOut {
@@ -255,36 +321,30 @@ button:active {
     }
     
     .display-container {
-        height: 160px;
+        height: 180px;
         padding: 20px;
     }
     
     .buttons-container {
-        height: calc(100vh - 160px - 49px);
+        height: calc(100vh - 180px - 53px);
     }
     
     .display {
-        font-size: 36px;
+        font-size: 42px;
     }
     
-    button {
-        font-size: 16px;
-    }
-    
-    .number-btn {
-        font-size: 18px;
-    }
-    
+    .number-btn,
     .operator-btn {
-        font-size: 18px;
+        font-size: 26px;
     }
     
     .function-btn {
-        font-size: 14px;
+        font-size: 20px;
     }
     
-    .memory-btn {
-        font-size: 12px;
+    .memory-btn,
+    .mode-btn {
+        font-size: 16px;
     }
 }
 
