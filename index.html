@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Futuristic Calculator</title>
+    <title>Scientific Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -13,21 +13,31 @@
             <input type="text" class="display" readonly>
         </div>
         <div class="buttons">
-            <button class="function-btn" data-action="sin"><i class="fas fa-sin"></i></button>
-            <button class="function-btn" data-action="cos"><i class="fas fa-cos"></i></button>
-            <button class="function-btn" data-action="tan"><i class="fas fa-tan"></i></button>
-            <button class="function-btn" data-action="sqrt"><i class="fas fa-square-root-alt"></i></button>
+            <!-- Scientific Functions Row 1 -->
+            <button class="function-btn" data-action="sin">sin</button>
+            <button class="function-btn" data-action="cos">cos</button>
+            <button class="function-btn" data-action="tan">tan</button>
+            <button class="function-btn" data-action="sqrt">√</button>
             
+            <!-- Scientific Functions Row 2 -->
             <button class="function-btn" data-action="log">log</button>
             <button class="function-btn" data-action="ln">ln</button>
             <button class="function-btn" data-action="pi">π</button>
             <button class="function-btn" data-action="e">e</button>
             
+            <!-- Memory Functions -->
+            <button class="memory-btn" data-action="mc">MC</button>
+            <button class="memory-btn" data-action="mr">MR</button>
+            <button class="memory-btn" data-action="m+">M+</button>
+            <button class="memory-btn" data-action="m-">M-</button>
+            
+            <!-- Clear and Operators -->
             <button class="clear-btn" data-action="AC">AC</button>
             <button class="clear-btn" data-action="C">C</button>
             <button class="operator-btn" data-action="%">%</button>
             <button class="operator-btn" data-action="/">÷</button>
             
+            <!-- Numbers and Basic Operators -->
             <button class="number-btn">7</button>
             <button class="number-btn">8</button>
             <button class="number-btn">9</button>

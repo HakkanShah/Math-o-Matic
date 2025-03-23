@@ -10,6 +10,7 @@ let currentValue = '';
 let previousValue = '';
 let operation = null;
 let shouldResetDisplay = false;
+let memoryValue = 0;
 
 // Add click event listener to each button
 buttons.forEach(button => {
@@ -79,6 +80,18 @@ function handleAction(action) {
         case 'e':
             insertE();
             break;
+        case 'mc':
+            memoryClear();
+            break;
+        case 'mr':
+            memoryRecall();
+            break;
+        case 'm+':
+            memoryAdd();
+            break;
+        case 'm-':
+            memorySubtract();
+            break;
     }
 }
 
@@ -116,6 +129,11 @@ function calculate() {
             result = prev * current;
             break;
         case '/':
+            if (current === 0) {
+                currentValue = 'Error';
+                updateDisplay();
+                return;
+            }
             result = prev / current;
             break;
         case '%':
@@ -128,12 +146,54 @@ function calculate() {
             return;
     }
     
+    // Format result to avoid floating point issues
+    result = Number(result.toFixed(10));
     currentValue = result.toString();
     operation = null;
     previousValue = '';
     shouldResetDisplay = true;
     updateDisplay();
     updateHistoryDisplay();
+}
+
+// Memory functions
+function memoryClear() {
+    memoryValue = 0;
+    showMemoryNotification('Memory Cleared');
+}
+
+function memoryRecall() {
+    if (memoryValue !== 0) {
+        currentValue = memoryValue.toString();
+        shouldResetDisplay = true;
+        updateDisplay();
+        showMemoryNotification('Memory Recalled');
+    }
+}
+
+function memoryAdd() {
+    if (currentValue !== '') {
+        memoryValue += parseFloat(currentValue);
+        showMemoryNotification('Added to Memory');
+    }
+}
+
+function memorySubtract() {
+    if (currentValue !== '') {
+        memoryValue -= parseFloat(currentValue);
+        showMemoryNotification('Subtracted from Memory');
+    }
+}
+
+function showMemoryNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'memory-notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 2000);
 }
 
 // Clear all
@@ -184,6 +244,7 @@ function calculateTrig(func) {
             break;
     }
     
+    result = Number(result.toFixed(10));
     currentValue = result.toString();
     shouldResetDisplay = true;
     updateDisplay();
@@ -197,6 +258,9 @@ function calculateSqrt() {
         currentValue = Math.sqrt(value).toString();
         shouldResetDisplay = true;
         updateDisplay();
+    } else {
+        currentValue = 'Error';
+        updateDisplay();
     }
 }
 
@@ -208,6 +272,9 @@ function calculateLog() {
         currentValue = Math.log10(value).toString();
         shouldResetDisplay = true;
         updateDisplay();
+    } else {
+        currentValue = 'Error';
+        updateDisplay();
     }
 }
 
@@ -218,6 +285,9 @@ function calculateLn() {
     if (value > 0) {
         currentValue = Math.log(value).toString();
         shouldResetDisplay = true;
+        updateDisplay();
+    } else {
+        currentValue = 'Error';
         updateDisplay();
     }
 }

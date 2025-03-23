@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
-    background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -16,66 +16,68 @@ body {
 
 /* Set up calculator container */
 .calculator {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     width: 400px;
 }
 
 /* Style display container */
 .display-container {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 10px;
 }
 
 .history-display {
     min-height: 30px;
-    color: rgba(255, 255, 255, 0.7);
+    color: #6c757d;
     text-align: right;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 5px;
+    padding: 5px;
 }
 
 /* Style display input */
 .display {
     width: 100%;
     padding: 20px;
-    border-radius: 12px;
-    font-size: 32px;
+    border-radius: 8px;
+    font-size: 36px;
     text-align: right;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    margin-bottom: 20px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+    border: 2px solid #e9ecef;
+    color: #212529;
+    margin-bottom: 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 /* Style calculator buttons */
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
+    grid-gap: 12px;
 }
 
 button {
-    padding: 20px;
-    font-size: 20px;
+    padding: 15px;
+    font-size: 18px;
     text-align: center;
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #212529;
+    background: #ffffff;
+    border: 2px solid #e9ecef;
     cursor: pointer;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    font-weight: 500;
 }
 
 button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: #f8f9fa;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 button:active {
@@ -83,42 +85,71 @@ button:active {
 }
 
 .number-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: #ffffff;
+    color: #212529;
 }
 
 .operator-btn {
-    background: rgba(255, 165, 0, 0.2);
-    color: #ffa500;
+    background: #e7f5ff;
+    color: #1971c2;
+    border-color: #74c0fc;
 }
 
 .function-btn {
-    background: rgba(0, 255, 255, 0.1);
-    color: #00ffff;
+    background: #f8f9fa;
+    color: #495057;
+    border-color: #dee2e6;
+}
+
+.memory-btn {
+    background: #fff4e6;
+    color: #e8590c;
+    border-color: #ffd8a8;
 }
 
 .clear-btn {
-    background: rgba(255, 0, 0, 0.1);
-    color: #ff4444;
+    background: #fff5f5;
+    color: #e03131;
+    border-color: #ffa8a8;
 }
 
 .equals-btn {
-    background: rgba(0, 255, 0, 0.2);
-    color: #00ff00;
+    background: #d3f9d8;
+    color: #2b8a3e;
+    border-color: #8ce99a;
     grid-column: span 2;
 }
 
 /* Add glow effect on hover */
 button:hover {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Add animation for button press */
 @keyframes buttonPress {
     0% { transform: scale(1); }
-    50% { transform: scale(0.95); }
+    50% { transform: scale(0.98); }
     100% { transform: scale(1); }
 }
 
 button:active {
     animation: buttonPress 0.2s ease;
+}
+
+/* Responsive design */
+@media (max-width: 450px) {
+    .calculator {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    button {
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    .display {
+        font-size: 28px;
+        padding: 15px;
+    }
 }
