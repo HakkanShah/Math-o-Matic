@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Futuristic Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="calculator">
+        <div class="display-container">
+            <div class="history-display"></div>
+            <input type="text" class="display" readonly>
+        </div>
+        <div class="buttons">
+            <button class="function-btn" data-action="sin"><i class="fas fa-sin"></i></button>
+            <button class="function-btn" data-action="cos"><i class="fas fa-cos"></i></button>
+            <button class="function-btn" data-action="tan"><i class="fas fa-tan"></i></button>
+            <button class="function-btn" data-action="sqrt"><i class="fas fa-square-root-alt"></i></button>
+            
+            <button class="function-btn" data-action="log">log</button>
+            <button class="function-btn" data-action="ln">ln</button>
+            <button class="function-btn" data-action="pi">π</button>
+            <button class="function-btn" data-action="e">e</button>
+            
+            <button class="clear-btn" data-action="AC">AC</button>
+            <button class="clear-btn" data-action="C">C</button>
+            <button class="operator-btn" data-action="%">%</button>
+            <button class="operator-btn" data-action="/">÷</button>
+            
+            <button class="number-btn">7</button>
+            <button class="number-btn">8</button>
+            <button class="number-btn">9</button>
+            <button class="operator-btn" data-action="*">×</button>
+            
+            <button class="number-btn">4</button>
+            <button class="number-btn">5</button>
+            <button class="number-btn">6</button>
+            <button class="operator-btn" data-action="-">−</button>
+            
+            <button class="number-btn">1</button>
+            <button class="number-btn">2</button>
+            <button class="number-btn">3</button>
+            <button class="operator-btn" data-action="+">+</button>
+            
+            <button class="number-btn">0</button>
+            <button class="number-btn">.</button>
+            <button class="equals-btn" data-action="=">=</button>
+            <button class="function-btn" data-action="^">x^y</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+}
+
+body {
+    background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Set up calculator container */
+.calculator {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 400px;
+}
+
+/* Style display container */
+.display-container {
+    margin-bottom: 20px;
+}
+
+.history-display {
+    min-height: 30px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* Style display input */
+.display {
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 32px;
+    text-align: right;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    margin-bottom: 20px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style calculator buttons */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+button {
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+.number-btn {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.operator-btn {
+    background: rgba(255, 165, 0, 0.2);
+    color: #ffa500;
+}
+
+.function-btn {
+    background: rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+}
+
+.clear-btn {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ff4444;
+}
+
+.equals-btn {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    grid-column: span 2;
+}
+
+/* Add glow effect on hover */
+button:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Add animation for button press */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+button:active {
+    animation: buttonPress 0.2s ease;
+}
