@@ -536,5 +536,4 @@ function showMemoryNotification(message) {
         notification.remove();
     }, 2000);
 }
-
 updateMemoryStatus();

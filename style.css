@@ -52,7 +52,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Theme Toggle Switch */
 .theme-toggle {
     position: fixed;
     top: 20px;
@@ -349,7 +348,7 @@ button:active {
 .calculator {
     animation: slideIn 0.3s ease-out;
 }
-    
+
 .github-link {
     display: flex;
     align-items: center;
