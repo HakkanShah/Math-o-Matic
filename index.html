@@ -1,64 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Professional Calculator</title>
+    <title>Next-Gen Scientific Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="theme-toggle">
+        <button id="themeButton">
+            <span class="light">☀️</span>
+            <span class="dark">🌙</span>
+        </button>
+    </div>
+    
     <div class="calculator">
         <div class="display-container">
+            <div class="mode-indicator">
+                <span class="rad-deg">RAD</span>
+                <span class="memory-status"></span>
+            </div>
             <div class="history-display"></div>
             <input type="text" class="display" readonly>
         </div>
-        <div class="buttons">
-            <!-- Mode and Memory Row -->
-            <button class="mode-btn" data-action="rad">RAD</button>
-            <button class="memory-btn" data-action="mc">MC</button>
-            <button class="memory-btn" data-action="mr">MR</button>
-            <button class="memory-btn" data-action="m+">M+</button>
-            <button class="memory-btn" data-action="m-">M-</button>
-            
-            <!-- Clear and Operators Row -->
-            <button class="clear-btn" data-action="AC">AC</button>
-            <button class="clear-btn" data-action="C">C</button>
-            <button class="operator-btn" data-action="del">⌫</button>
-            <button class="operator-btn" data-action="%">%</button>
-            <button class="operator-btn" data-action="/">÷</button>
-            
-            <!-- Scientific Functions and Numbers -->
-            <button class="function-btn" data-action="sin">sin</button>
-            <button class="function-btn" data-action="cos">cos</button>
-            <button class="function-btn" data-action="tan">tan</button>
-            <button class="number-btn">7</button>
-            <button class="number-btn">8</button>
-            <button class="number-btn">9</button>
-            <button class="operator-btn" data-action="*">×</button>
-            
-            <button class="function-btn" data-action="sqrt">√</button>
-            <button class="function-btn" data-action="log">log</button>
-            <button class="function-btn" data-action="ln">ln</button>
-            <button class="number-btn">4</button>
-            <button class="number-btn">5</button>
-            <button class="number-btn">6</button>
-            <button class="operator-btn" data-action="-">−</button>
-            
-            <button class="function-btn" data-action="pi">π</button>
-            <button class="function-btn" data-action="e">e</button>
-            <button class="function-btn" data-action="fact">x!</button>
-            <button class="number-btn">1</button>
-            <button class="number-btn">2</button>
-            <button class="number-btn">3</button>
-            <button class="operator-btn" data-action="+">+</button>
-            
-            <button class="function-btn" data-action="(">(</button>
-            <button class="function-btn" data-action=")">)</button>
-            <button class="number-btn">0</button>
-            <button class="number-btn">.</button>
-            <button class="equals-btn" data-action="=">=</button>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="standard">Standard</button>
+            <button class="tab-btn" data-tab="scientific">Scientific</button>
+        </div>
+
+        <div class="buttons-container">
+            <div class="buttons standard active">
+                <!-- Memory Row -->
+                <button class="memory-btn" data-action="mc">MC</button>
+                <button class="memory-btn" data-action="mr">MR</button>
+                <button class="memory-btn" data-action="m+">M+</button>
+                <button class="memory-btn" data-action="m-">M−</button>
+                
+                <!-- First Row -->
+                <button class="clear-btn" data-action="AC">AC</button>
+                <button class="clear-btn" data-action="C">C</button>
+                <button class="operator-btn" data-action="del">⌫</button>
+                <button class="operator-btn" data-action="/">÷</button>
+                
+                <!-- Number Pad with Operators -->
+                <button class="number-btn">7</button>
+                <button class="number-btn">8</button>
+                <button class="number-btn">9</button>
+                <button class="operator-btn" data-action="*">×</button>
+                
+                <button class="number-btn">4</button>
+                <button class="number-btn">5</button>
+                <button class="number-btn">6</button>
+                <button class="operator-btn" data-action="-">−</button>
+                
+                <button class="number-btn">1</button>
+                <button class="number-btn">2</button>
+                <button class="number-btn">3</button>
+                <button class="operator-btn" data-action="+">+</button>
+                
+                <button class="number-btn">0</button>
+                <button class="number-btn">.</button>
+                <button class="function-btn" data-action="%">%</button>
+                <button class="equals-btn" data-action="=">=</button>
+            </div>
+
+            <div class="buttons scientific">
+                <!-- Scientific Functions -->
+                <button class="mode-btn" data-action="rad">RAD</button>
+                <button class="function-btn" data-action="pi">π</button>
+                <button class="function-btn" data-action="e">e</button>
+                <button class="function-btn" data-action="(">(</button>
+                <button class="function-btn" data-action=")">)</button>
+                
+                <button class="function-btn" data-action="sin">sin</button>
+                <button class="function-btn" data-action="cos">cos</button>
+                <button class="function-btn" data-action="tan">tan</button>
+                <button class="function-btn" data-action="log">log</button>
+                <button class="function-btn" data-action="ln">ln</button>
+                
+                <button class="function-btn" data-action="sinh">sinh</button>
+                <button class="function-btn" data-action="cosh">cosh</button>
+                <button class="function-btn" data-action="tanh">tanh</button>
+                <button class="function-btn" data-action="sqrt">√</button>
+                <button class="function-btn" data-action="cbrt">∛</button>
+                
+                <button class="function-btn" data-action="asin">sin⁻¹</button>
+                <button class="function-btn" data-action="acos">cos⁻¹</button>
+                <button class="function-btn" data-action="atan">tan⁻¹</button>
+                <button class="function-btn" data-action="pow2">x²</button>
+                <button class="function-btn" data-action="pow3">x³</button>
+                
+                <button class="function-btn" data-action="fact">x!</button>
+                <button class="function-btn" data-action="exp">EXP</button>
+                <button class="function-btn" data-action="abs">|x|</button>
+                <button class="function-btn" data-action="1/x">1/x</button>
+                <button class="function-btn" data-action="rand">RND</button>
+            </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
