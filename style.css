@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Google Sans', sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: #f5f5f5;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -16,27 +16,32 @@ body {
 
 /* Set up calculator container */
 .calculator {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Style display container */
 .display-container {
-    margin-bottom: 25px;
-    background: #f8f9fa;
-    border-radius: 12px;
-    padding: 10px;
+    flex: 1;
+    background: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .history-display {
     min-height: 30px;
-    color: #6c757d;
+    color: #666666;
     text-align: right;
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    margin-bottom: 10px;
     padding: 5px;
 }
 
@@ -44,112 +49,145 @@ body {
 .display {
     width: 100%;
     padding: 20px;
-    border-radius: 8px;
-    font-size: 36px;
+    border: none;
+    font-size: 48px;
     text-align: right;
-    background: #ffffff;
-    border: 2px solid #e9ecef;
-    color: #212529;
+    background: transparent;
+    color: #000000;
     margin-bottom: 10px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    outline: none;
 }
 
 /* Style calculator buttons */
 .buttons {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 12px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1px;
+    background: #f5f5f5;
+    padding: 1px;
 }
 
 button {
-    padding: 15px;
-    font-size: 18px;
+    padding: 20px 10px;
+    font-size: 20px;
     text-align: center;
-    color: #212529;
-    background: #ffffff;
-    border: 2px solid #e9ecef;
+    border: none;
     cursor: pointer;
-    border-radius: 10px;
     transition: all 0.2s ease;
-    font-weight: 500;
+    background: #ffffff;
+    color: #000000;
+    position: relative;
+    overflow: hidden;
 }
 
 button:hover {
-    background: #f8f9fa;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #f0f0f0;
 }
 
 button:active {
-    transform: translateY(1px);
+    background: #e0e0e0;
+    transform: scale(0.95);
 }
 
 .number-btn {
     background: #ffffff;
-    color: #212529;
+    color: #000000;
+    font-weight: 500;
 }
 
 .operator-btn {
-    background: #e7f5ff;
-    color: #1971c2;
-    border-color: #74c0fc;
+    background: #f5f5f5;
+    color: #1a73e8;
+    font-weight: 500;
 }
 
 .function-btn {
-    background: #f8f9fa;
-    color: #495057;
-    border-color: #dee2e6;
+    background: #f5f5f5;
+    color: #1a73e8;
+    font-size: 18px;
 }
 
 .memory-btn {
-    background: #fff4e6;
-    color: #e8590c;
-    border-color: #ffd8a8;
+    background: #f5f5f5;
+    color: #1a73e8;
+    font-size: 16px;
+}
+
+.mode-btn {
+    background: #f5f5f5;
+    color: #1a73e8;
+    font-weight: 500;
 }
 
 .clear-btn {
-    background: #fff5f5;
-    color: #e03131;
-    border-color: #ffa8a8;
+    background: #f5f5f5;
+    color: #1a73e8;
+    font-weight: 500;
 }
 
 .equals-btn {
-    background: #d3f9d8;
-    color: #2b8a3e;
-    border-color: #8ce99a;
-    grid-column: span 2;
+    background: #1a73e8;
+    color: #ffffff;
+    grid-column: span 3;
+    font-weight: 500;
 }
 
-/* Add glow effect on hover */
-button:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.equals-btn:hover {
+    background: #1557b0;
 }
 
-/* Add animation for button press */
-@keyframes buttonPress {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.98); }
-    100% { transform: scale(1); }
+.equals-btn:active {
+    background: #174ea6;
 }
 
-button:active {
-    animation: buttonPress 0.2s ease;
+/* Memory notification */
+.memory-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 1000;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, 20px); }
+    20% { opacity: 1; transform: translate(-50%, 0); }
+    80% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -20px); }
 }
 
 /* Responsive design */
 @media (max-width: 450px) {
     .calculator {
-        width: 95%;
-        padding: 15px;
+        height: 100vh;
+        max-height: none;
     }
     
     button {
-        padding: 12px;
-        font-size: 16px;
+        padding: 15px 5px;
+        font-size: 18px;
     }
     
     .display {
-        font-size: 28px;
+        font-size: 36px;
         padding: 15px;
+    }
+    
+    .history-display {
+        font-size: 16px;
+    }
+    
+    .function-btn {
+        font-size: 16px;
+    }
+    
+    .memory-btn {
+        font-size: 14px;
     }
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Scientific Calculator</title>
+    <title>Professional Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -13,50 +13,50 @@
             <input type="text" class="display" readonly>
         </div>
         <div class="buttons">
-            <!-- Scientific Functions Row 1 -->
-            <button class="function-btn" data-action="sin">sin</button>
-            <button class="function-btn" data-action="cos">cos</button>
-            <button class="function-btn" data-action="tan">tan</button>
-            <button class="function-btn" data-action="sqrt">√</button>
-            
-            <!-- Scientific Functions Row 2 -->
-            <button class="function-btn" data-action="log">log</button>
-            <button class="function-btn" data-action="ln">ln</button>
-            <button class="function-btn" data-action="pi">π</button>
-            <button class="function-btn" data-action="e">e</button>
-            
-            <!-- Memory Functions -->
+            <!-- Mode and Memory Row -->
+            <button class="mode-btn" data-action="rad">RAD</button>
             <button class="memory-btn" data-action="mc">MC</button>
             <button class="memory-btn" data-action="mr">MR</button>
             <button class="memory-btn" data-action="m+">M+</button>
             <button class="memory-btn" data-action="m-">M-</button>
             
-            <!-- Clear and Operators -->
+            <!-- Clear and Operators Row -->
             <button class="clear-btn" data-action="AC">AC</button>
             <button class="clear-btn" data-action="C">C</button>
+            <button class="operator-btn" data-action="del">⌫</button>
             <button class="operator-btn" data-action="%">%</button>
             <button class="operator-btn" data-action="/">÷</button>
             
-            <!-- Numbers and Basic Operators -->
+            <!-- Scientific Functions and Numbers -->
+            <button class="function-btn" data-action="sin">sin</button>
+            <button class="function-btn" data-action="cos">cos</button>
+            <button class="function-btn" data-action="tan">tan</button>
             <button class="number-btn">7</button>
             <button class="number-btn">8</button>
             <button class="number-btn">9</button>
             <button class="operator-btn" data-action="*">×</button>
             
+            <button class="function-btn" data-action="sqrt">√</button>
+            <button class="function-btn" data-action="log">log</button>
+            <button class="function-btn" data-action="ln">ln</button>
             <button class="number-btn">4</button>
             <button class="number-btn">5</button>
             <button class="number-btn">6</button>
             <button class="operator-btn" data-action="-">−</button>
             
+            <button class="function-btn" data-action="pi">π</button>
+            <button class="function-btn" data-action="e">e</button>
+            <button class="function-btn" data-action="fact">x!</button>
             <button class="number-btn">1</button>
             <button class="number-btn">2</button>
             <button class="number-btn">3</button>
             <button class="operator-btn" data-action="+">+</button>
             
+            <button class="function-btn" data-action="(">(</button>
+            <button class="function-btn" data-action=")">)</button>
             <button class="number-btn">0</button>
             <button class="number-btn">.</button>
             <button class="equals-btn" data-action="=">=</button>
-            <button class="function-btn" data-action="^">x^y</button>
         </div>
     </div>
     <script src="script.js"></script>

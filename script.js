@@ -11,6 +11,8 @@ let previousValue = '';
 let operation = null;
 let shouldResetDisplay = false;
 let memoryValue = 0;
+let isRadianMode = true;
+let expression = '';
 
 // Add click event listener to each button
 buttons.forEach(button => {
@@ -33,6 +35,7 @@ function handleNumber(number) {
         shouldResetDisplay = false;
     }
     currentValue += number;
+    expression += number;
     updateDisplay();
 }
 
@@ -45,6 +48,9 @@ function handleAction(action) {
         case 'C':
             clearLast();
             break;
+        case 'del':
+            deleteLast();
+            break;
         case '=':
             calculate();
             break;
@@ -53,7 +59,6 @@ function handleAction(action) {
         case '*':
         case '/':
         case '%':
-        case '^':
             handleOperator(action);
             break;
         case 'sin':
@@ -92,6 +97,21 @@ function handleAction(action) {
         case 'm-':
             memorySubtract();
             break;
+        case 'ms':
+            memoryStore();
+            break;
+        case 'rad':
+            toggleRadianMode();
+            break;
+        case 'fact':
+            calculateFactorial();
+            break;
+        case '(':
+            insertParenthesis('(');
+            break;
+        case ')':
+            insertParenthesis(')');
+            break;
     }
 }
 
@@ -106,6 +126,7 @@ function handleOperator(operator) {
     operation = operator;
     previousValue = currentValue;
     currentValue = '';
+    expression += operator;
     shouldResetDisplay = true;
     updateHistoryDisplay();
 }
@@ -114,46 +135,49 @@ function handleOperator(operator) {
 function calculate() {
     if (previousValue === '' || currentValue === '') return;
     
-    let result;
-    const prev = parseFloat(previousValue);
-    const current = parseFloat(currentValue);
-    
-    switch(operation) {
-        case '+':
-            result = prev + current;
-            break;
-        case '-':
-            result = prev - current;
-            break;
-        case '*':
-            result = prev * current;
-            break;
-        case '/':
-            if (current === 0) {
-                currentValue = 'Error';
-                updateDisplay();
+    try {
+        let result;
+        const prev = parseFloat(previousValue);
+        const current = parseFloat(currentValue);
+        
+        switch(operation) {
+            case '+':
+                result = prev + current;
+                break;
+            case '-':
+                result = prev - current;
+                break;
+            case '*':
+                result = prev * current;
+                break;
+            case '/':
+                if (current === 0) {
+                    currentValue = 'Error';
+                    updateDisplay();
+                    return;
+                }
+                result = prev / current;
+                break;
+            case '%':
+                result = (prev * current) / 100;
+                break;
+            default:
                 return;
-            }
-            result = prev / current;
-            break;
-        case '%':
-            result = (prev * current) / 100;
-            break;
-        case '^':
-            result = Math.pow(prev, current);
-            break;
-        default:
-            return;
+        }
+        
+        // Format result to avoid floating point issues
+        result = Number(result.toFixed(10));
+        currentValue = result.toString();
+        expression = currentValue;
+        operation = null;
+        previousValue = '';
+        shouldResetDisplay = true;
+        updateDisplay();
+        updateHistoryDisplay();
+    } catch (error) {
+        currentValue = 'Error';
+        updateDisplay();
     }
-    
-    // Format result to avoid floating point issues
-    result = Number(result.toFixed(10));
-    currentValue = result.toString();
-    operation = null;
-    previousValue = '';
-    shouldResetDisplay = true;
-    updateDisplay();
-    updateHistoryDisplay();
 }
 
 // Memory functions
@@ -165,6 +189,7 @@ function memoryClear() {
 function memoryRecall() {
     if (memoryValue !== 0) {
         currentValue = memoryValue.toString();
+        expression = currentValue;
         shouldResetDisplay = true;
         updateDisplay();
         showMemoryNotification('Memory Recalled');
@@ -185,15 +210,58 @@ function memorySubtract() {
     }
 }
 
-function showMemoryNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'memory-notification';
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 2000);
+function memoryStore() {
+    if (currentValue !== '') {
+        memoryValue = parseFloat(currentValue);
+        showMemoryNotification('Stored in Memory');
+    }
+}
+
+// Toggle between Radian and Degree mode
+function toggleRadianMode() {
+    isRadianMode = !isRadianMode;
+    const radButton = document.querySelector('[data-action="rad"]');
+    radButton.textContent = isRadianMode ? 'RAD' : 'DEG';
+    showMemoryNotification(isRadianMode ? 'Radian Mode' : 'Degree Mode');
+}
+
+// Calculate factorial
+function calculateFactorial() {
+    if (currentValue === '') return;
+    const num = parseInt(currentValue);
+    if (num < 0 || !Number.isInteger(num)) {
+        currentValue = 'Error';
+        updateDisplay();
+        return;
+    }
+    let result = 1;
+    for (let i = 2; i <= num; i++) {
+        result *= i;
+    }
+    currentValue = result.toString();
+    expression = currentValue;
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+// Insert parenthesis
+function insertParenthesis(type) {
+    if (shouldResetDisplay) {
+        currentValue = '';
+        shouldResetDisplay = false;
+    }
+    currentValue += type;
+    expression += type;
+    updateDisplay();
+}
+
+// Delete last character
+function deleteLast() {
+    if (currentValue.length > 0) {
+        currentValue = currentValue.slice(0, -1);
+        expression = expression.slice(0, -1);
+        updateDisplay();
+    }
 }
 
 // Clear all
@@ -201,14 +269,19 @@ function clearAll() {
     currentValue = '';
     previousValue = '';
     operation = null;
+    expression = '';
     updateDisplay();
     updateHistoryDisplay();
 }
 
 // Clear last character
 function clearLast() {
-    currentValue = currentValue.slice(0, -1);
+    currentValue = '';
+    previousValue = '';
+    operation = null;
+    expression = '';
     updateDisplay();
+    updateHistoryDisplay();
 }
 
 // Update display
@@ -229,9 +302,13 @@ function updateHistoryDisplay() {
 function calculateTrig(func) {
     if (currentValue === '') return;
     const value = parseFloat(currentValue);
-    const radians = value * Math.PI / 180;
-    let result;
+    let radians = value;
     
+    if (!isRadianMode) {
+        radians = value * Math.PI / 180;
+    }
+    
+    let result;
     switch(func) {
         case 'sin':
             result = Math.sin(radians);
@@ -246,6 +323,7 @@ function calculateTrig(func) {
     
     result = Number(result.toFixed(10));
     currentValue = result.toString();
+    expression = currentValue;
     shouldResetDisplay = true;
     updateDisplay();
 }
@@ -256,6 +334,7 @@ function calculateSqrt() {
     const value = parseFloat(currentValue);
     if (value >= 0) {
         currentValue = Math.sqrt(value).toString();
+        expression = currentValue;
         shouldResetDisplay = true;
         updateDisplay();
     } else {
@@ -270,6 +349,7 @@ function calculateLog() {
     const value = parseFloat(currentValue);
     if (value > 0) {
         currentValue = Math.log10(value).toString();
+        expression = currentValue;
         shouldResetDisplay = true;
         updateDisplay();
     } else {
@@ -284,6 +364,7 @@ function calculateLn() {
     const value = parseFloat(currentValue);
     if (value > 0) {
         currentValue = Math.log(value).toString();
+        expression = currentValue;
         shouldResetDisplay = true;
         updateDisplay();
     } else {
@@ -294,14 +375,34 @@ function calculateLn() {
 
 // Insert Pi
 function insertPi() {
+    if (shouldResetDisplay) {
+        currentValue = '';
+        shouldResetDisplay = false;
+    }
     currentValue = Math.PI.toString();
-    shouldResetDisplay = true;
+    expression += Math.PI;
     updateDisplay();
 }
 
 // Insert Euler's number
 function insertE() {
+    if (shouldResetDisplay) {
+        currentValue = '';
+        shouldResetDisplay = false;
+    }
     currentValue = Math.E.toString();
-    shouldResetDisplay = true;
+    expression += Math.E;
     updateDisplay();
+}
+
+// Show memory notification
+function showMemoryNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'memory-notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 2000);
 }
