@@ -52,7 +52,9 @@ body {
     transition: all 0.3s ease;
 }
 
-.theme-toggle {
+/* Theme Toggle */
+ /* Theme Toggle Switch */
+ .theme-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -63,13 +65,16 @@ body {
 }
 
 .theme-toggle button {
+    background: none;
     position: relative;
     width: 60px;
     height: 30px;
     background: var(--surface-variant);
     border-radius: 15px;
     border: none;
+    font-size: 24px;
     cursor: pointer;
+    padding: 8px;
     transition: all 0.3s ease;
     overflow: hidden;
 }
@@ -83,6 +88,10 @@ body {
     height: 26px;
     background: var(--primary);
     border-radius: 50%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px var(--shadow);
     transition: all 0.3s ease;
 }
 
@@ -115,8 +124,6 @@ body {
 [data-theme="dark"] .theme-toggle .dark {
     opacity: 1;
 }
-
-
 .calculator {
     background: var(--surface);
     width: 100%;
