@@ -7,6 +7,7 @@ const scientificButtons = document.querySelector('.buttons.scientific');
 const themeButton = document.getElementById('themeButton');
 const memoryStatus = document.querySelector('.memory-status');
 const radDegDisplay = document.querySelector('.rad-deg');
+const buttonTapSound = document.getElementById('buttonTap');
 
 let currentValue = '';
 let previousValue = '';
@@ -39,6 +40,12 @@ tabButtons.forEach(tab => {
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
+        // Play button tap sound
+        buttonTapSound.currentTime = 0;
+        buttonTapSound.play().catch(error => {
+            console.log('Sound play failed:', error);
+        });
+        
         button.style.transform = 'scale(0.95)';
         setTimeout(() => button.style.transform = '', 100);
         
