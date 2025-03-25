@@ -577,3 +577,168 @@ button:active {
 .github-link span {
     line-height: 3;
 }
+
+.buttons.converter {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding: 20px;
+    background: var(--surface);
+    display: none;
+}
+
+.buttons.converter.active {
+    display: block;
+}
+
+.converter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    background: var(--surface);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.converter-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.converter-type {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: var(--surface-variant);
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.converter-inputs {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    margin: 10px 0;
+}
+
+.converter-input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.converter-value,
+.converter-result {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: var(--surface-variant);
+    color: var(--text);
+    font-size: 20px;
+    text-align: right;
+    outline: none;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.converter-from,
+.converter-to {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background: var(--surface-variant);
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.converter-swap {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background: var(--primary);
+    color: var(--operator-text);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.converter-swap:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.converter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.converter-clear,
+.converter-copy {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: var(--surface-variant);
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.converter-clear:hover,
+.converter-copy:hover {
+    background: var(--primary);
+    color: var(--operator-text);
+}
+
+@media (max-width: 480px) {
+    .converter-container {
+        gap: 15px;
+    }
+    
+    .converter-inputs {
+        gap: 10px;
+    }
+    
+    .converter-value,
+    .converter-result {
+        font-size: 18px;
+        padding: 10px;
+    }
+    
+    .converter-from,
+    .converter-to {
+        font-size: 13px;
+        padding: 6px;
+    }
+    
+    .converter-swap {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+    
+    .converter-clear,
+    .converter-copy {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

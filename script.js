@@ -9,6 +9,16 @@ const memoryStatus = document.querySelector('.memory-status');
 const radDegDisplay = document.querySelector('.rad-deg');
 const buttonTapSound = document.getElementById('buttonTap');
 
+// Unit Converter Variables
+const converterType = document.querySelector('.converter-type');
+const converterValue = document.querySelector('.converter-value');
+const converterResult = document.querySelector('.converter-result');
+const converterFrom = document.querySelector('.converter-from');
+const converterTo = document.querySelector('.converter-to');
+const converterSwap = document.querySelector('.converter-swap');
+const converterClear = document.querySelector('.converter-clear');
+const converterCopy = document.querySelector('.converter-copy');
+
 let currentValue = '';
 let previousValue = '';
 let operation = null;
@@ -17,6 +27,96 @@ let memoryValue = 0;
 let isRadianMode = true;
 let expression = '';
 let isDarkMode = false;
+
+// Unit Conversion Data
+const unitConversions = {
+    length: {
+        units: ['Meters', 'Kilometers', 'Centimeters', 'Millimeters', 'Miles', 'Yards', 'Feet', 'Inches'],
+        conversions: {
+            'Meters': 1,
+            'Kilometers': 1000,
+            'Centimeters': 0.01,
+            'Millimeters': 0.001,
+            'Miles': 1609.34,
+            'Yards': 0.9144,
+            'Feet': 0.3048,
+            'Inches': 0.0254
+        }
+    },
+    weight: {
+        units: ['Kilograms', 'Grams', 'Milligrams', 'Pounds', 'Ounces'],
+        conversions: {
+            'Kilograms': 1,
+            'Grams': 0.001,
+            'Milligrams': 0.000001,
+            'Pounds': 0.453592,
+            'Ounces': 0.0283495
+        }
+    },
+    temperature: {
+        units: ['Celsius', 'Fahrenheit', 'Kelvin'],
+        conversions: {
+            'Celsius': 1,
+            'Fahrenheit': 1,
+            'Kelvin': 1
+        }
+    },
+    area: {
+        units: ['Square Meters', 'Square Kilometers', 'Square Miles', 'Acres', 'Square Yards', 'Square Feet'],
+        conversions: {
+            'Square Meters': 1,
+            'Square Kilometers': 1000000,
+            'Square Miles': 2589988.11,
+            'Acres': 4046.86,
+            'Square Yards': 0.836127,
+            'Square Feet': 0.092903
+        }
+    },
+    volume: {
+        units: ['Liters', 'Milliliters', 'Cubic Meters', 'Gallons', 'Quarts', 'Pints', 'Cups', 'Fluid Ounces'],
+        conversions: {
+            'Liters': 1,
+            'Milliliters': 0.001,
+            'Cubic Meters': 1000,
+            'Gallons': 3.78541,
+            'Quarts': 0.946353,
+            'Pints': 0.473176,
+            'Cups': 0.236588,
+            'Fluid Ounces': 0.0295735
+        }
+    },
+    speed: {
+        units: ['Meters per Second', 'Kilometers per Hour', 'Miles per Hour', 'Knots'],
+        conversions: {
+            'Meters per Second': 1,
+            'Kilometers per Hour': 0.277778,
+            'Miles per Hour': 0.44704,
+            'Knots': 0.514444
+        }
+    },
+    time: {
+        units: ['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years'],
+        conversions: {
+            'Seconds': 1,
+            'Minutes': 60,
+            'Hours': 3600,
+            'Days': 86400,
+            'Weeks': 604800,
+            'Months': 2629746,
+            'Years': 31556952
+        }
+    },
+    data: {
+        units: ['Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes'],
+        conversions: {
+            'Bytes': 1,
+            'Kilobytes': 1024,
+            'Megabytes': 1048576,
+            'Gigabytes': 1073741824,
+            'Terabytes': 1099511627776
+        }
+    }
+};
 
 themeButton.addEventListener('click', () => {
     requestAnimationFrame(() => {
@@ -31,12 +131,24 @@ tabButtons.forEach(tab => {
             tabButtons.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             
+            // Hide all sections first
+            standardButtons.classList.remove('active');
+            scientificButtons.classList.remove('active');
+            document.querySelector('.buttons.converter').classList.remove('active');
+            
+            // Show selected section
             if (tab.dataset.tab === 'standard') {
                 standardButtons.classList.add('active');
-                scientificButtons.classList.remove('active');
-            } else {
+                display.style.display = 'block';
+                historyDisplay.style.display = 'block';
+            } else if (tab.dataset.tab === 'scientific') {
                 scientificButtons.classList.add('active');
-                standardButtons.classList.remove('active');
+                display.style.display = 'block';
+                historyDisplay.style.display = 'block';
+            } else if (tab.dataset.tab === 'converter') {
+                document.querySelector('.buttons.converter').classList.add('active');
+                display.style.display = 'none';
+                historyDisplay.style.display = 'none';
             }
         });
     });
@@ -72,6 +184,20 @@ buttons.forEach(button => {
 
 // Add keyboard support
 document.addEventListener('keydown', (event) => {
+    // Check if we're in converter mode
+    const isConverterActive = document.querySelector('.buttons.converter').classList.contains('active');
+    if (isConverterActive) {
+        // Handle converter keyboard input
+        if (event.key === 'Enter') {
+            convert();
+        } else if (event.key === 'Escape') {
+            clearConverter();
+        } else if (event.key === 'c' || event.key === 'C') {
+            copyResult();
+        }
+        return;
+    }
+
     // Prevent default behavior for calculator keys
     if (isCalculatorKey(event.key)) {
         event.preventDefault();
@@ -698,4 +824,137 @@ function showMemoryNotification(message) {
         notification.remove();
     }, 2000);
 }
+
+// Initialize Unit Converter
+function initializeConverter() {
+    updateUnitOptions();
+    converterType.addEventListener('change', () => {
+        updateUnitOptions();
+        convert();
+    });
+    converterValue.addEventListener('input', convert);
+    converterFrom.addEventListener('change', convert);
+    converterTo.addEventListener('change', convert);
+    converterSwap.addEventListener('click', swapUnits);
+    converterClear.addEventListener('click', clearConverter);
+    converterCopy.addEventListener('click', copyResult);
+}
+
+// Update Unit Options
+function updateUnitOptions() {
+    const type = converterType.value;
+    const units = unitConversions[type].units;
+    
+    // Clear existing options
+    converterFrom.innerHTML = '';
+    converterTo.innerHTML = '';
+    
+    // Add new options
+    units.forEach(unit => {
+        const fromOption = new Option(unit, unit);
+        const toOption = new Option(unit, unit);
+        converterFrom.add(fromOption);
+        converterTo.add(toOption);
+    });
+    
+    // Set default selections
+    converterFrom.value = units[0];
+    converterTo.value = units[1];
+    
+    // Clear previous values
+    converterValue.value = '';
+    converterResult.value = '';
+}
+
+// Convert Units
+function convert() {
+    const type = converterType.value;
+    const value = parseFloat(converterValue.value) || 0;
+    const fromUnit = converterFrom.value;
+    const toUnit = converterTo.value;
+    
+    let result;
+    
+    if (type === 'temperature') {
+        result = convertTemperature(value, fromUnit, toUnit);
+    } else {
+        const baseValue = value * unitConversions[type].conversions[fromUnit];
+        result = baseValue / unitConversions[type].conversions[toUnit];
+    }
+    
+    // Format result based on type
+    if (type === 'temperature') {
+        converterResult.value = result.toFixed(2);
+    } else if (type === 'data') {
+        converterResult.value = result.toFixed(2);
+    } else {
+        converterResult.value = result.toFixed(6);
+    }
+}
+
+// Convert Temperature
+function convertTemperature(value, fromUnit, toUnit) {
+    let celsius;
+    
+    // Convert to Celsius first
+    switch(fromUnit) {
+        case 'Celsius':
+            celsius = value;
+            break;
+        case 'Fahrenheit':
+            celsius = (value - 32) * 5/9;
+            break;
+        case 'Kelvin':
+            celsius = value - 273.15;
+            break;
+    }
+    
+    // Convert from Celsius to target unit
+    switch(toUnit) {
+        case 'Celsius':
+            return celsius;
+        case 'Fahrenheit':
+            return (celsius * 9/5) + 32;
+        case 'Kelvin':
+            return celsius + 273.15;
+    }
+}
+
+// Swap Units
+function swapUnits() {
+    const temp = converterFrom.value;
+    converterFrom.value = converterTo.value;
+    converterTo.value = temp;
+    
+    // Also swap the values if they exist
+    if (converterValue.value && converterResult.value) {
+        const tempValue = converterValue.value;
+        converterValue.value = converterResult.value;
+        converterResult.value = tempValue;
+    }
+    
+    convert();
+}
+
+// Clear Converter
+function clearConverter() {
+    converterValue.value = '';
+    converterResult.value = '';
+    showMemoryNotification('Converter Cleared');
+}
+
+// Copy Result
+function copyResult() {
+    if (converterResult.value) {
+        converterResult.select();
+        document.execCommand('copy');
+        showMemoryNotification('Result Copied!');
+    }
+}
+
+// Initialize converter when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeConverter();
+});
+
 updateMemoryStatus();

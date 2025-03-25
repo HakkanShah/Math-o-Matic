@@ -36,6 +36,7 @@
         <div class="tabs">
             <button class="tab-btn active" data-tab="standard">Standard</button>
             <button class="tab-btn" data-tab="scientific">Scientific</button>
+            <button class="tab-btn" data-tab="converter">Converter</button>
         </div>
 
         <div class="buttons-container">
@@ -102,6 +103,38 @@
                 <button class="function-btn" data-action="abs">|x|</button>
                 <button class="function-btn" data-action="1/x">1/x</button>
                 <button class="function-btn" data-action="rand">RND</button>
+            </div>
+
+            <div class="buttons converter">
+                <div class="converter-container">
+                    <div class="converter-header">
+                        <select class="converter-type">
+                            <option value="length">Length</option>
+                            <option value="weight">Weight</option>
+                            <option value="temperature">Temperature</option>
+                            <option value="area">Area</option>
+                            <option value="volume">Volume</option>
+                            <option value="speed">Speed</option>
+                            <option value="time">Time</option>
+                            <option value="data">Data</option>
+                        </select>
+                    </div>
+                    <div class="converter-inputs">
+                        <div class="converter-input-group">
+                            <input type="number" class="converter-value" placeholder="0">
+                            <select class="converter-from"></select>
+                        </div>
+                        <button class="converter-swap">⇄</button>
+                        <div class="converter-input-group">
+                            <input type="number" class="converter-result" readonly>
+                            <select class="converter-to"></select>
+                        </div>
+                    </div>
+                    <div class="converter-buttons">
+                        <button class="converter-clear">Clear</button>
+                        <button class="converter-copy">Copy</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
