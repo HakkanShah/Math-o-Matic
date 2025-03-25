@@ -581,87 +581,119 @@ button:active {
 .buttons.converter {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    padding: 15px;
-    background: var(--surface);
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     display: none;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.buttons.converter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255, 149, 0, 0.15), transparent 70%),
+                radial-gradient(circle at bottom left, rgba(255, 149, 0, 0.15), transparent 70%);
+    pointer-events: none;
 }
 
 .buttons.converter.active {
     display: block;
-    animation: fadeScale 0.3s ease-out;
+    animation: fadeScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.converter-container {
+.converter-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 20px;
+    border-radius: 30px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-[data-theme="dark"] .converter-container {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+.converter-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
 }
 
 .converter-header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
+    padding: 25px 25px 15px;
+    position: relative;
+    z-index: 1;
 }
 
 .converter-type {
     width: 100%;
-    padding: 12px 15px;
+    padding: 15px 20px;
     border: none;
-    border-radius: 12px;
-    background: var(--surface-variant);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--surface-variant) 0%, rgba(var(--primary), 0.1) 100%);
     color: var(--text);
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
     outline: none;
     box-shadow: 0 4px 15px var(--shadow);
     transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
 }
 
 .converter-type:hover {
-    transform: scale(1.02);
+    transform: translateY(-2px);
     box-shadow: 0 6px 20px var(--shadow);
+}
+
+.converter-main {
+    flex: 1;
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
 }
 
 .converter-inputs {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    flex: 1;
+    gap: 20px;
 }
 
 .converter-input-group {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 10px;
+    grid-template-columns: 2.5fr 1.5fr;
+    gap: 15px;
     align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.converter-input-group:hover {
+    transform: translateX(5px);
 }
 
 .converter-value,
 .converter-result {
     width: 100%;
-    padding: 12px 15px;
+    padding: 15px 20px;
     border: 2px solid transparent;
-    border-radius: 12px;
+    border-radius: 16px;
     background: var(--surface-variant);
     color: var(--text);
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 500;
     text-align: right;
     outline: none;
     box-shadow: 0 4px 15px var(--shadow);
@@ -670,127 +702,130 @@ button:active {
 
 .converter-value:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 149, 0, 0.2);
 }
 
 .converter-from,
 .converter-to {
     width: 100%;
-    padding: 12px 15px;
+    padding: 15px 20px;
     border: none;
-    border-radius: 12px;
-    background: var(--surface-variant);
-    color: var(--text);
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    box-shadow: 0 4px 15px var(--shadow);
-    transition: all 0.3s ease;
-}
-
-.converter-swap-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 0;
-}
-
-.converter-swap {
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    background: var(--primary);
-    color: var(--operator-text);
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px var(--shadow);
-}
-
-.converter-swap:hover {
-    transform: rotate(180deg) scale(1.1);
-    background: var(--primary-dark);
-}
-
-.converter-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.converter-clear,
-.converter-copy {
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
+    border-radius: 16px;
     background: var(--surface-variant);
     color: var(--text);
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
+    outline: none;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+}
+
+.converter-from:hover,
+.converter-to:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.converter-swap {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--operator-text);
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.converter-swap::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.converter-swap:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.converter-swap:hover {
+    transform: rotate(180deg) scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 149, 0, 0.4);
+}
+
+.converter-buttons {
+    padding: 15px 20px 20px;
+    display: flex;
+    gap: 15px;
+ 
+    position: relative;
+    z-index: 10;
+}
+
+.converter-clear,
+.converter-copy {
+    flex: 1;
+    height: 50px;
+    padding: 0;
+    border: none;
+    border-radius: 16px;
+    background: var(--surface-variant);
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px var(--shadow);
-}
-
-.converter-clear:hover,
-.converter-copy:hover {
-    transform: translateY(-2px);
-    background: var(--primary);
-    color: var(--operator-text);
-}
-
-@keyframes fadeScale {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 @media (max-width: 480px) {
-    .converter-container {
-        padding: 15px;
-        gap: 15px;
-    }
-    
-    .converter-inputs {
-        gap: 12px;
-    }
-    
-    .converter-input-group {
-        grid-template-columns: 1.8fr 1fr;
-        gap: 8px;
-    }
-    
-    .converter-value,
-    .converter-result {
-        font-size: 16px;
-        padding: 10px 12px;
-    }
-    
-    .converter-from,
-    .converter-to {
-        font-size: 13px;
-        padding: 10px;
-    }
-    
-    .converter-swap {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
+    .converter-buttons {
+        padding: 10px 15px 15px;
     }
     
     .converter-clear,
     .converter-copy {
+        height: 45px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .converter-buttons {
+        padding: 8px 12px 12px;
+    }
+    
+    .converter-clear,
+    .converter-copy {
+        height: 40px;
         font-size: 14px;
-        padding: 10px;
     }
 }
