@@ -637,7 +637,7 @@ button:active {
     padding: 15px 20px;
     border: none;
     border-radius: 16px;
-    background: linear-gradient(135deg, var(--surface-variant) 0%, rgba(var(--primary), 0.1) 100%);
+    background: var(--surface-variant);
     color: var(--text);
     font-size: 18px;
     font-weight: 600;
@@ -828,4 +828,19 @@ button:active {
         height: 40px;
         font-size: 14px;
     }
+}
+
+.converter-type option,
+.converter-from option,
+.converter-to option {
+    background: var(--surface);
+    color: var(--text);
+    padding: 10px;
+}
+
+[data-theme="dark"] .converter-type option,
+[data-theme="dark"] .converter-from option,
+[data-theme="dark"] .converter-to option {
+    background: var(--surface);
+    color: var(--text);
 }
