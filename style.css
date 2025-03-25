@@ -581,13 +581,17 @@ button:active {
 .buttons.converter {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    padding: 20px;
+    padding: 15px;
     background: var(--surface);
     display: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 100%;
 }
 
 .buttons.converter.active {
     display: block;
+    animation: fadeScale 0.3s ease-out;
 }
 
 .converter-container {
@@ -595,20 +599,30 @@ button:active {
     flex-direction: column;
     gap: 20px;
     height: 100%;
-    background: var(--surface);
-    padding: 15px;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .converter-container {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .converter-header {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .converter-type {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     border: none;
     border-radius: 12px;
     background: var(--surface-variant);
@@ -616,57 +630,76 @@ button:active {
     font-size: 16px;
     cursor: pointer;
     outline: none;
-    box-shadow: 0 2px 8px var(--shadow);
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.converter-type:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px var(--shadow);
 }
 
 .converter-inputs {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 15px;
     flex: 1;
-    margin: 10px 0;
 }
 
 .converter-input-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    align-items: center;
 }
 
 .converter-value,
 .converter-result {
     width: 100%;
-    padding: 12px;
-    border: none;
+    padding: 12px 15px;
+    border: 2px solid transparent;
     border-radius: 12px;
     background: var(--surface-variant);
     color: var(--text);
-    font-size: 20px;
+    font-size: 18px;
     text-align: right;
     outline: none;
-    box-shadow: 0 2px 8px var(--shadow);
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.converter-value:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.2);
 }
 
 .converter-from,
 .converter-to {
     width: 100%;
-    padding: 8px;
+    padding: 12px 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     background: var(--surface-variant);
     color: var(--text);
     font-size: 14px;
     cursor: pointer;
     outline: none;
-    box-shadow: 0 2px 8px var(--shadow);
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.converter-swap-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
 }
 
 .converter-swap {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border: none;
-    border-radius: 20px;
+    border-radius: 50%;
     background: var(--primary);
     color: var(--operator-text);
     font-size: 20px;
@@ -674,65 +707,84 @@ button:active {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .converter-swap:hover {
+    transform: rotate(180deg) scale(1.1);
     background: var(--primary-dark);
-    transform: scale(1.1);
 }
 
 .converter-buttons {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
     margin-top: 10px;
 }
 
 .converter-clear,
 .converter-copy {
-    flex: 1;
     padding: 12px;
     border: none;
     border-radius: 12px;
     background: var(--surface-variant);
     color: var(--text);
     font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .converter-clear:hover,
 .converter-copy:hover {
+    transform: translateY(-2px);
     background: var(--primary);
     color: var(--operator-text);
 }
 
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 @media (max-width: 480px) {
     .converter-container {
+        padding: 15px;
         gap: 15px;
     }
     
     .converter-inputs {
-        gap: 10px;
+        gap: 12px;
+    }
+    
+    .converter-input-group {
+        grid-template-columns: 1.8fr 1fr;
+        gap: 8px;
     }
     
     .converter-value,
     .converter-result {
-        font-size: 18px;
-        padding: 10px;
+        font-size: 16px;
+        padding: 10px 12px;
     }
     
     .converter-from,
     .converter-to {
         font-size: 13px;
-        padding: 6px;
+        padding: 10px;
     }
     
     .converter-swap {
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
         font-size: 18px;
     }
     
