@@ -70,6 +70,128 @@ buttons.forEach(button => {
     });
 });
 
+// Add keyboard support
+document.addEventListener('keydown', (event) => {
+    // Prevent default behavior for calculator keys
+    if (isCalculatorKey(event.key)) {
+        event.preventDefault();
+    }
+
+    // Handle number keys
+    if (/^[0-9.]$/.test(event.key)) {
+        handleNumber(event.key);
+    }
+    
+    // Handle operators
+    switch(event.key) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '%':
+            handleOperator(event.key);
+            break;
+            
+        case 'Enter':
+        case '=':
+            calculate();
+            break;
+            
+        case 'Backspace':
+            deleteLast();
+            break;
+            
+        case 'Escape':
+            clearAll();
+            break;
+            
+        case 'c':
+        case 'C':
+            clearLast();
+            break;
+            
+        case 'm':
+        case 'M':
+            if (event.ctrlKey) {
+                memoryClear();
+            } else if (event.altKey) {
+                memoryRecall();
+            } else if (event.shiftKey) {
+                memoryAdd();
+            } else {
+                memorySubtract();
+            }
+            break;
+            
+        case 'p':
+        case 'P':
+            insertPi();
+            break;
+            
+        case 'e':
+        case 'E':
+            insertE();
+            break;
+            
+        case 'r':
+        case 'R':
+            insertRandom();
+            break;
+            
+        case 's':
+        case 'S':
+            if (event.ctrlKey) {
+                calculateSqrt();
+            } else if (event.altKey) {
+                calculateSin();
+            }
+            break;
+            
+        case 't':
+        case 'T':
+            if (event.ctrlKey) {
+                calculateTan();
+            }
+            break;
+            
+        case 'l':
+        case 'L':
+            if (event.ctrlKey) {
+                calculateLog();
+            } else {
+                calculateLn();
+            }
+            break;
+            
+        case 'd':
+        case 'D':
+            toggleRadianMode();
+            break;
+    }
+});
+
+// Function to check if key is used by calculator
+function isCalculatorKey(key) {
+    const calculatorKeys = [
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '.', '+', '-', '*', '/', '%', '=', 'Enter', 'Backspace',
+        'Escape', 'c', 'C', 'm', 'M', 'p', 'P', 'e', 'E', 'r', 'R',
+        's', 'S', 't', 'T', 'l', 'L', 'd', 'D'
+    ];
+    return calculatorKeys.includes(key);
+}
+
+// Add visual feedback for keyboard input
+function simulateButtonPress(action) {
+    const button = document.querySelector(`[data-action="${action}"]`);
+    if (button) {
+        requestAnimationFrame(() => {
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => button.style.transform = '', 50);
+        });
+    }
+}
+
 function handleNumber(number) {
     if (shouldResetDisplay) {
         currentValue = '';
@@ -78,6 +200,15 @@ function handleNumber(number) {
     currentValue += number;
     expression += number;
     updateDisplay();
+    
+    // Simulate button press
+    const button = Array.from(buttons).find(btn => btn.textContent === number);
+    if (button) {
+        requestAnimationFrame(() => {
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => button.style.transform = '', 50);
+        });
+    }
 }
 
 function handleAction(action) {
@@ -196,6 +327,9 @@ function handleOperator(operator) {
     expression += operator;
     shouldResetDisplay = true;
     updateHistoryDisplay();
+    
+    // Simulate button press
+    simulateButtonPress(operator);
 }
 
 function calculate() {
