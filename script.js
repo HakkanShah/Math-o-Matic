@@ -19,44 +19,54 @@ let expression = '';
 let isDarkMode = false;
 
 themeButton.addEventListener('click', () => {
-    isDarkMode = !isDarkMode;
-    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    requestAnimationFrame(() => {
+        isDarkMode = !isDarkMode;
+        document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    });
 });
 
 tabButtons.forEach(tab => {
     tab.addEventListener('click', () => {
-        tabButtons.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        if (tab.dataset.tab === 'standard') {
-            standardButtons.classList.add('active');
-            scientificButtons.classList.remove('active');
-        } else {
-            scientificButtons.classList.add('active');
-            standardButtons.classList.remove('active');
-        }
+        requestAnimationFrame(() => {
+            tabButtons.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            if (tab.dataset.tab === 'standard') {
+                standardButtons.classList.add('active');
+                scientificButtons.classList.remove('active');
+            } else {
+                scientificButtons.classList.add('active');
+                standardButtons.classList.remove('active');
+            }
+        });
     });
 });
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
-        // Play button tap sound
-        buttonTapSound.currentTime = 0;
-        buttonTapSound.play().catch(error => {
-            console.log('Sound play failed:', error);
-        });
+        // Play sound with reduced latency
+        if (buttonTapSound.readyState >= 2) {
+            buttonTapSound.currentTime = 0;
+            buttonTapSound.play().catch(() => {});
+        }
         
-        button.style.transform = 'scale(0.95)';
-        setTimeout(() => button.style.transform = '', 100);
+        // Optimize visual feedback
+        requestAnimationFrame(() => {
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => button.style.transform = '', 50);
+        });
         
         const buttonText = button.textContent;
         const action = button.dataset.action;
         
-        if (action) {
-            handleAction(action);
-        } else {
-            handleNumber(buttonText);
-        }
+        // Use requestAnimationFrame for smoother UI updates
+        requestAnimationFrame(() => {
+            if (action) {
+                handleAction(action);
+            } else {
+                handleNumber(buttonText);
+            }
+        });
     });
 });
 
@@ -271,7 +281,9 @@ function memorySubtract() {
 }
 
 function updateMemoryStatus() {
-    memoryStatus.textContent = memoryValue !== 0 ? 'M' : '';
+    requestAnimationFrame(() => {
+        memoryStatus.textContent = memoryValue !== 0 ? 'M' : '';
+    });
 }
 
 function calculateTrig(func) {
@@ -522,15 +534,19 @@ function insertE() {
 }
 
 function updateDisplay() {
-    display.value = currentValue || '0';
+    requestAnimationFrame(() => {
+        display.value = currentValue || '0';
+    });
 }
 
 function updateHistoryDisplay() {
-    if (previousValue && operation) {
-        historyDisplay.textContent = `${previousValue} ${operation}`;
-    } else {
-        historyDisplay.textContent = '';
-    }
+    requestAnimationFrame(() => {
+        if (previousValue && operation) {
+            historyDisplay.textContent = `${previousValue} ${operation}`;
+        } else {
+            historyDisplay.textContent = '';
+        }
+    });
 }
 
 function showMemoryNotification(message) {
@@ -538,6 +554,11 @@ function showMemoryNotification(message) {
     notification.className = 'memory-notification';
     notification.textContent = message;
     document.body.appendChild(notification);
+    
+    // Use requestAnimationFrame for smoother animation
+    requestAnimationFrame(() => {
+        notification.style.animation = 'fadeInOut 2s ease forwards';
+    });
     
     setTimeout(() => {
         notification.remove();
