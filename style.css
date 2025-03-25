@@ -52,7 +52,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Theme Toggle Switch */
+
 .theme-toggle {
     position: fixed;
     top: 20px;
@@ -66,7 +66,7 @@ body {
     justify-content: center;
 }
 
-/* Toggle Button */
+
 .theme-toggle button {
     width: 65px;
     height: 32px;
@@ -80,7 +80,7 @@ body {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Button Sliding Circle */
+
 .theme-toggle button::before {
     content: '';
     position: absolute;
@@ -95,7 +95,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Dark Mode */
+
 [data-theme="dark"] .theme-toggle button {
     background: rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.2);
