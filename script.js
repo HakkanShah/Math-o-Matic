@@ -139,16 +139,24 @@ tabButtons.forEach(tab => {
             // Show selected section
             if (tab.dataset.tab === 'standard') {
                 standardButtons.classList.add('active');
+                document.querySelector('.display-container').style.display = 'flex';
                 display.style.display = 'block';
                 historyDisplay.style.display = 'block';
             } else if (tab.dataset.tab === 'scientific') {
                 scientificButtons.classList.add('active');
+                document.querySelector('.display-container').style.display = 'flex';
                 display.style.display = 'block';
                 historyDisplay.style.display = 'block';
             } else if (tab.dataset.tab === 'converter') {
                 document.querySelector('.buttons.converter').classList.add('active');
+                document.querySelector('.display-container').style.display = 'none';
                 display.style.display = 'none';
                 historyDisplay.style.display = 'none';
+                // Reset calculator display when switching to converter
+                currentValue = '';
+                previousValue = '';
+                operation = null;
+                expression = '';
             }
         });
     });
@@ -319,21 +327,24 @@ function simulateButtonPress(action) {
 }
 
 function handleNumber(number) {
-    if (shouldResetDisplay) {
-        currentValue = '';
-        shouldResetDisplay = false;
-    }
-    currentValue += number;
-    expression += number;
-    updateDisplay();
-    
-    // Simulate button press
-    const button = Array.from(buttons).find(btn => btn.textContent === number);
-    if (button) {
-        requestAnimationFrame(() => {
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => button.style.transform = '', 50);
-        });
+    // Only handle numbers when not in converter mode
+    if (!document.querySelector('.buttons.converter').classList.contains('active')) {
+        if (shouldResetDisplay) {
+            currentValue = '';
+            shouldResetDisplay = false;
+        }
+        currentValue += number;
+        expression += number;
+        updateDisplay();
+        
+        // Simulate button press
+        const button = Array.from(buttons).find(btn => btn.textContent === number);
+        if (button) {
+            requestAnimationFrame(() => {
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => button.style.transform = '', 50);
+            });
+        }
     }
 }
 
@@ -794,28 +805,36 @@ function insertE() {
 }
 
 function updateDisplay() {
-    requestAnimationFrame(() => {
-        display.value = currentValue || '0';
-    });
+    // Only update display when not in converter mode
+    if (!document.querySelector('.buttons.converter').classList.contains('active')) {
+        requestAnimationFrame(() => {
+            display.value = currentValue || '0';
+        });
+    }
 }
 
 function updateHistoryDisplay() {
-    requestAnimationFrame(() => {
-        if (previousValue && operation) {
-            historyDisplay.textContent = `${previousValue} ${operation}`;
-        } else {
-            historyDisplay.textContent = '';
-        }
-    });
+    // Only update history display when not in converter mode
+    if (!document.querySelector('.buttons.converter').classList.contains('active')) {
+        requestAnimationFrame(() => {
+            if (previousValue && operation) {
+                historyDisplay.textContent = `${previousValue} ${operation}`;
+            } else {
+                historyDisplay.textContent = '';
+            }
+        });
+    }
 }
 
-function showMemoryNotification(message) {
+function showMemoryNotification(message, isConverter = false) {
+    // Only show notifications for calculator actions
+    if (isConverter) return;
+    
     const notification = document.createElement('div');
     notification.className = 'memory-notification';
     notification.textContent = message;
     document.body.appendChild(notification);
     
-    // Use requestAnimationFrame for smoother animation
     requestAnimationFrame(() => {
         notification.style.animation = 'fadeInOut 2s ease forwards';
     });
@@ -922,33 +941,35 @@ function convertTemperature(value, fromUnit, toUnit) {
 
 // Swap Units
 function swapUnits() {
-    const temp = converterFrom.value;
-    converterFrom.value = converterTo.value;
-    converterTo.value = temp;
-    
-    // Also swap the values if they exist
-    if (converterValue.value && converterResult.value) {
-        const tempValue = converterValue.value;
-        converterValue.value = converterResult.value;
-        converterResult.value = tempValue;
+    if (document.querySelector('.buttons.converter').classList.contains('active')) {
+        const temp = converterFrom.value;
+        converterFrom.value = converterTo.value;
+        converterTo.value = temp;
+        
+        // Also swap the values if they exist
+        if (converterValue.value && converterResult.value) {
+            const tempValue = converterValue.value;
+            converterValue.value = converterResult.value;
+            converterResult.value = tempValue;
+        }
+        
+        convert();
     }
-    
-    convert();
 }
 
 // Clear Converter
 function clearConverter() {
-    converterValue.value = '';
-    converterResult.value = '';
-    showMemoryNotification('Converter Cleared');
+    if (document.querySelector('.buttons.converter').classList.contains('active')) {
+        converterValue.value = '';
+        converterResult.value = '';
+    }
 }
 
 // Copy Result
 function copyResult() {
-    if (converterResult.value) {
+    if (document.querySelector('.buttons.converter').classList.contains('active') && converterResult.value) {
         converterResult.select();
         document.execCommand('copy');
-        showMemoryNotification('Result Copied!');
     }
 }
 
