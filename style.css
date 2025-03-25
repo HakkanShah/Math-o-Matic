@@ -377,19 +377,62 @@ button:active {
         max-width: 100%;
         height: 100vh;
         border-radius: 0;
+        box-shadow: none;
     }
     
+    .display-container {
+        height: 200px;
+        padding: 25px;
+    }
+    
+    .buttons-container {
+        height: calc(100vh - 200px - 53px);
+    }
+    
+    .display {
+        font-size: 48px;
+    }
+    
+    .history-display {
+        font-size: 24px;
+    }
+    
+    .number-btn,
+    .operator-btn {
+        font-size: 28px;
+    }
+    
+    .function-btn {
+        font-size: 22px;
+    }
+    
+    .memory-btn,
+    .mode-btn {
+        font-size: 18px;
+    }
+    
+    .equals-btn {
+        font-size: 32px;
+    }
+    
+    .tab-btn {
+        padding: 18px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
     .display-container {
         height: 180px;
         padding: 20px;
     }
     
-    .buttons-container {
-        height: calc(100vh - 180px - 53px);
-    }
-    
     .display {
         font-size: 42px;
+    }
+    
+    .history-display {
+        font-size: 20px;
     }
     
     .number-btn,
@@ -404,6 +447,93 @@ button:active {
     .memory-btn,
     .mode-btn {
         font-size: 16px;
+    }
+    
+    .equals-btn {
+        font-size: 28px;
+    }
+    
+    .tab-btn {
+        padding: 16px;
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .calculator {
+        max-width: 90%;
+    }
+    
+    .display-container {
+        height: 180px;
+    }
+    
+    .display {
+        font-size: 44px;
+    }
+    
+    .history-display {
+        font-size: 22px;
+    }
+    
+    .number-btn,
+    .operator-btn {
+        font-size: 26px;
+    }
+    
+    .function-btn {
+        font-size: 20px;
+    }
+    
+    .memory-btn,
+    .mode-btn {
+        font-size: 16px;
+    }
+    
+    .equals-btn {
+        font-size: 30px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .calculator {
+        max-width: 400px;
+    }
+    
+    .display-container {
+        height: 170px;
+    }
+    
+    .display {
+        font-size: 46px;
+    }
+    
+    .history-display {
+        font-size: 23px;
+    }
+    
+    .number-btn,
+    .operator-btn {
+        font-size: 27px;
+    }
+    
+    .function-btn {
+        font-size: 21px;
+    }
+    
+    .memory-btn,
+    .mode-btn {
+        font-size: 17px;
+    }
+    
+    .equals-btn {
+        font-size: 31px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .calculator {
+        max-width: 380px;
     }
 }
 
