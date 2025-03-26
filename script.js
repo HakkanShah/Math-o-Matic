@@ -382,7 +382,7 @@ document.addEventListener('keydown', (event) => {
         case 'L':
             if (event.ctrlKey) {
                 calculateLog();
-            } else {
+        } else {
                 calculateLn();
             }
             break;
