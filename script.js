@@ -50,6 +50,10 @@ function dragStart(e) {
     if (e.target === themeToggle || themeToggle.contains(e.target)) {
         isDragging = true;
         themeToggle.classList.add('dragging');
+        // Add haptic feedback for mobile
+        if (navigator.vibrate) {
+            navigator.vibrate(10);
+        }
     }
 }
 
@@ -58,6 +62,10 @@ function dragEnd() {
     initialY = currentY;
     isDragging = false;
     themeToggle.classList.remove('dragging');
+    // Add haptic feedback for mobile
+    if (navigator.vibrate) {
+        navigator.vibrate(5);
+    }
 }
 
 function drag(e) {
@@ -83,16 +91,51 @@ function drag(e) {
         
         // Calculate maximum allowed positions
         const maxX = (windowWidth - buttonWidth) / 2;
-        const maxY = windowHeight - buttonHeight - 20; // Allow movement up to 20px from bottom
+        const maxY = windowHeight - buttonHeight - 20;
         
         // Constrain position within bounds
         currentX = Math.max(-maxX, Math.min(maxX, currentX));
-        currentY = Math.max(-maxY, Math.min(0, currentY)); // Allow upward movement but not below bottom
+        currentY = Math.max(-maxY, Math.min(0, currentY));
 
         xOffset = currentX;
         yOffset = currentY;
 
         setTranslate(currentX, currentY, themeToggle);
+    }
+}
+
+// Add touch feedback
+themeToggle.addEventListener('touchstart', () => {
+    if (navigator.vibrate) {
+        navigator.vibrate(10);
+    }
+});
+
+// Update loadPosition for better mobile handling
+function loadPosition() {
+    const savedPosition = localStorage.getItem('themeTogglePosition');
+    if (savedPosition) {
+        const position = JSON.parse(savedPosition);
+        const buttonRect = themeToggle.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate maximum allowed positions
+        const maxX = (windowWidth - buttonRect.width) / 2;
+        const maxY = windowHeight - buttonRect.height - 20;
+        
+        // Ensure loaded position is within webpage bounds
+        xOffset = Math.max(-maxX, Math.min(maxX, position.x));
+        yOffset = Math.max(-maxY, Math.min(0, position.y));
+        
+        // Add smooth transition for initial position
+        themeToggle.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTranslate(xOffset, yOffset, themeToggle);
+        
+        // Remove transition after initial position is set
+        setTimeout(() => {
+            themeToggle.style.transition = '';
+        }, 300);
     }
 }
 
@@ -115,27 +158,6 @@ function savePosition() {
         x: xOffset,
         y: yOffset
     }));
-}
-
-// Load position from localStorage
-function loadPosition() {
-    const savedPosition = localStorage.getItem('themeTogglePosition');
-    if (savedPosition) {
-        const position = JSON.parse(savedPosition);
-        const buttonRect = themeToggle.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        
-        // Calculate maximum allowed positions
-        const maxX = (windowWidth - buttonRect.width) / 2;
-        const maxY = windowHeight - buttonRect.height - 20;
-        
-        // Ensure loaded position is within webpage bounds
-        xOffset = Math.max(-maxX, Math.min(maxX, position.x));
-        yOffset = Math.max(-maxY, Math.min(0, position.y));
-        
-        setTranslate(xOffset, yOffset, themeToggle);
-    }
 }
 
 // Add event listener for saving position

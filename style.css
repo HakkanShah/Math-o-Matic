@@ -69,15 +69,18 @@ body {
     cursor: move;
     user-select: none;
     touch-action: none;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     max-width: calc(100vw - 40px);
     max-height: calc(100vh - 40px);
     transform-origin: center center;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .theme-toggle.dragging {
     cursor: grabbing;
     box-shadow: 0 8px 24px var(--shadow);
+    transform: scale(1.05);
+    opacity: 0.9;
 }
 
 .theme-toggle button {
@@ -88,11 +91,15 @@ body {
     border: none;
     cursor: pointer;
     position: relative;
-    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    -webkit-tap-highlight-color: transparent;
 }
 
+.theme-toggle button:active {
+    transform: scale(0.95);
+}
 
 .theme-toggle button::before {
     content: '';
@@ -437,6 +444,17 @@ button:active {
     .theme-toggle {
         bottom: 15px;
         transform: translateX(-50%) translateY(0);
+        padding: 4px;
+    }
+    
+    .theme-toggle button {
+        width: 60px;
+        height: 30px;
+    }
+    
+    .theme-toggle .light,
+    .theme-toggle .dark {
+        font-size: 13px;
     }
 }
 
@@ -480,6 +498,17 @@ button:active {
     .theme-toggle {
         bottom: 10px;
         transform: translateX(-50%) translateY(0);
+        padding: 3px;
+    }
+    
+    .theme-toggle button {
+        width: 55px;
+        height: 28px;
+    }
+    
+    .theme-toggle .light,
+    .theme-toggle .dark {
+        font-size: 12px;
     }
 }
 
