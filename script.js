@@ -100,6 +100,8 @@ function drag(e) {
         xOffset = currentX;
         yOffset = currentY;
 
+        // Remove transition during dragging
+        themeToggle.style.transition = 'none';
         setTranslate(currentX, currentY, themeToggle);
     }
 }
@@ -129,13 +131,13 @@ function loadPosition() {
         yOffset = Math.max(-maxY, Math.min(0, position.y));
         
         // Add smooth transition for initial position
-        themeToggle.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        themeToggle.style.transition = 'transform 0.2s ease';
         setTranslate(xOffset, yOffset, themeToggle);
         
         // Remove transition after initial position is set
         setTimeout(() => {
-            themeToggle.style.transition = '';
-        }, 300);
+            themeToggle.style.transition = 'box-shadow 0.2s ease';
+        }, 200);
     }
 }
 
