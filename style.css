@@ -78,7 +78,7 @@ body {
 
 /* Add tooltip styles */
 .theme-toggle::before {
-    content: 'Drag me anywhere!';
+    content: 'Drag me anywhere!😊';
     position: absolute;
     top: -40px;
     left: 50%;
