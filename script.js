@@ -83,11 +83,11 @@ function drag(e) {
         
         // Calculate maximum allowed positions
         const maxX = (windowWidth - buttonWidth) / 2;
-        const maxY = (windowHeight - buttonHeight) / 2;
+        const maxY = windowHeight - buttonHeight - 20; // Allow movement up to 20px from bottom
         
         // Constrain position within bounds
         currentX = Math.max(-maxX, Math.min(maxX, currentX));
-        currentY = Math.max(-maxY, Math.min(maxY, currentY));
+        currentY = Math.max(-maxY, Math.min(0, currentY)); // Allow upward movement but not below bottom
 
         xOffset = currentX;
         yOffset = currentY;
@@ -128,11 +128,11 @@ function loadPosition() {
         
         // Calculate maximum allowed positions
         const maxX = (windowWidth - buttonRect.width) / 2;
-        const maxY = (windowHeight - buttonRect.height) / 2;
+        const maxY = windowHeight - buttonRect.height - 20;
         
         // Ensure loaded position is within webpage bounds
         xOffset = Math.max(-maxX, Math.min(maxX, position.x));
-        yOffset = Math.max(-maxY, Math.min(maxY, position.y));
+        yOffset = Math.max(-maxY, Math.min(0, position.y));
         
         setTranslate(xOffset, yOffset, themeToggle);
     }

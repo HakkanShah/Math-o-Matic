@@ -72,6 +72,7 @@ body {
     transition: box-shadow 0.3s ease;
     max-width: calc(100vw - 40px);
     max-height: calc(100vh - 40px);
+    transform-origin: center center;
 }
 
 .theme-toggle.dragging {
@@ -434,6 +435,7 @@ button:active {
     
     .theme-toggle {
         bottom: 15px;
+        transform: translateX(-50%) translateY(0);
     }
 }
 
@@ -476,6 +478,7 @@ button:active {
     
     .theme-toggle {
         bottom: 10px;
+        transform: translateX(-50%) translateY(0);
     }
 }
 
