@@ -72,6 +72,23 @@ function drag(e) {
             currentY = e.clientY - initialY;
         }
 
+        // Get button dimensions
+        const buttonRect = themeToggle.getBoundingClientRect();
+        const buttonWidth = buttonRect.width;
+        const buttonHeight = buttonRect.height;
+        
+        // Get window dimensions
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate maximum allowed positions
+        const maxX = (windowWidth - buttonWidth) / 2;
+        const maxY = (windowHeight - buttonHeight) / 2;
+        
+        // Constrain position within bounds
+        currentX = Math.max(-maxX, Math.min(maxX, currentX));
+        currentY = Math.max(-maxY, Math.min(maxY, currentY));
+
         xOffset = currentX;
         yOffset = currentY;
 
@@ -105,8 +122,18 @@ function loadPosition() {
     const savedPosition = localStorage.getItem('themeTogglePosition');
     if (savedPosition) {
         const position = JSON.parse(savedPosition);
-        xOffset = position.x;
-        yOffset = position.y;
+        const buttonRect = themeToggle.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate maximum allowed positions
+        const maxX = (windowWidth - buttonRect.width) / 2;
+        const maxY = (windowHeight - buttonRect.height) / 2;
+        
+        // Ensure loaded position is within webpage bounds
+        xOffset = Math.max(-maxX, Math.min(maxX, position.x));
+        yOffset = Math.max(-maxY, Math.min(maxY, position.y));
+        
         setTranslate(xOffset, yOffset, themeToggle);
     }
 }
