@@ -76,6 +76,55 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Add tooltip styles */
+.theme-toggle::before {
+    content: 'Drag me anywhere!';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--surface);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover::before,
+.theme-toggle:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hide tooltip after 5 seconds */
+.theme-toggle.hide-tooltip::before,
+.theme-toggle.hide-tooltip::after {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .theme-toggle.dragging {
     cursor: grabbing;
     box-shadow: 0 8px 24px var(--shadow);
