@@ -26,7 +26,7 @@ let shouldResetDisplay = false;
 let memoryValue = 0;
 let isRadianMode = true;
 let expression = '';
-let isDarkMode = false;
+let isDarkMode = true;
 
 // Add drag functionality to theme toggle
 const themeToggle = document.querySelector('.theme-toggle');
@@ -311,11 +311,13 @@ buttons.forEach(button => {
             buttonTapSound.play().catch(() => {});
         }
         
-        // Optimize visual feedback
-        requestAnimationFrame(() => {
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => button.style.transform = '', 50);
-        });
+        // Add pressed class for visual feedback
+        button.classList.add('pressed');
+        
+        // Remove pressed class after 1 second
+        setTimeout(() => {
+            button.classList.remove('pressed');
+        }, 1000);
         
         const buttonText = button.textContent;
         const action = button.dataset.action;
@@ -974,7 +976,10 @@ function showMemoryNotification(message, isConverter = false) {
     const notification = document.createElement('div');
     notification.className = 'memory-notification';
     notification.textContent = message;
-    document.body.appendChild(notification);
+    
+    // Append to display container instead of body
+    const displayContainer = document.querySelector('.display-container');
+    displayContainer.appendChild(notification);
     
     requestAnimationFrame(() => {
         notification.style.animation = 'fadeInOut 2s ease forwards';
