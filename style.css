@@ -64,6 +64,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
 }
 
 
@@ -586,7 +587,7 @@ button:active {
     display: none;
     height: 100%;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .buttons.converter::before {
@@ -617,7 +618,7 @@ button:active {
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
