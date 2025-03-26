@@ -70,6 +70,8 @@ body {
     user-select: none;
     touch-action: none;
     transition: box-shadow 0.3s ease;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
 }
 
 .theme-toggle.dragging {
