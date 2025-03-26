@@ -28,6 +28,96 @@ let isRadianMode = true;
 let expression = '';
 let isDarkMode = false;
 
+// Add drag functionality to theme toggle
+const themeToggle = document.querySelector('.theme-toggle');
+let isDragging = false;
+let currentX;
+let currentY;
+let initialX;
+let initialY;
+let xOffset = 0;
+let yOffset = 0;
+
+function dragStart(e) {
+    if (e.type === "touchstart") {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+    } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+    }
+
+    if (e.target === themeToggle || themeToggle.contains(e.target)) {
+        isDragging = true;
+        themeToggle.classList.add('dragging');
+    }
+}
+
+function dragEnd() {
+    initialX = currentX;
+    initialY = currentY;
+    isDragging = false;
+    themeToggle.classList.remove('dragging');
+}
+
+function drag(e) {
+    if (isDragging) {
+        e.preventDefault();
+        
+        if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+        } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+        }
+
+        xOffset = currentX;
+        yOffset = currentY;
+
+        setTranslate(currentX, currentY, themeToggle);
+    }
+}
+
+function setTranslate(xPos, yPos, el) {
+    el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+}
+
+// Add event listeners for drag functionality
+themeToggle.addEventListener("touchstart", dragStart, false);
+themeToggle.addEventListener("touchend", dragEnd, false);
+themeToggle.addEventListener("touchmove", drag, false);
+
+themeToggle.addEventListener("mousedown", dragStart, false);
+document.addEventListener("mouseup", dragEnd, false);
+document.addEventListener("mousemove", drag, false);
+
+// Save position to localStorage
+function savePosition() {
+    localStorage.setItem('themeTogglePosition', JSON.stringify({
+        x: xOffset,
+        y: yOffset
+    }));
+}
+
+// Load position from localStorage
+function loadPosition() {
+    const savedPosition = localStorage.getItem('themeTogglePosition');
+    if (savedPosition) {
+        const position = JSON.parse(savedPosition);
+        xOffset = position.x;
+        yOffset = position.y;
+        setTranslate(xOffset, yOffset, themeToggle);
+    }
+}
+
+// Add event listener for saving position
+themeToggle.addEventListener("mouseup", savePosition);
+themeToggle.addEventListener("touchend", savePosition);
+
+// Load saved position when page loads
+document.addEventListener('DOMContentLoaded', loadPosition);
+
 // Unit Conversion Data
 const unitConversions = {
     length: {

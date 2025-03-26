@@ -66,8 +66,16 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+    transition: box-shadow 0.3s ease;
 }
 
+.theme-toggle.dragging {
+    cursor: grabbing;
+    box-shadow: 0 8px 24px var(--shadow);
+}
 
 .theme-toggle button {
     width: 65px;
