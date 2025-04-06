@@ -311,13 +311,97 @@ tabButtons.forEach(tab => {
     });
 });
 
-// Play sound function
-function playSound(soundElement) {
+// Performance optimizations
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+// Sound preloading
+const preloadSounds = () => {
+    const sounds = [
+        'ButtonTap.mp3',
+        'NumberTap.mp3',
+        'OperatorTap.mp3',
+        'FunctionTap.mp3',
+        'MemoryTap.mp3',
+        'ClearTap.mp3'
+    ];
+    
+    sounds.forEach(sound => {
+        const audio = new Audio(sound);
+        audio.load();
+    });
+};
+
+// Optimized sound playback
+const playSound = (soundElement) => {
     if (soundElement.readyState >= 2) {
         soundElement.currentTime = 0;
-        soundElement.play().catch(() => {});
+        const playPromise = soundElement.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {});
+        }
     }
-}
+};
+
+// Touch event handling
+const handleTouchStart = (e) => {
+    e.preventDefault();
+    const button = e.target.closest('button');
+    if (button) {
+        button.classList.add('pressed');
+        playButtonSound(button);
+    }
+};
+
+const handleTouchEnd = (e) => {
+    const button = e.target.closest('button');
+    if (button) {
+        button.classList.remove('pressed');
+    }
+};
+
+// Optimized button click handler
+const handleButtonClick = debounce((button) => {
+    const buttonText = button.textContent;
+    const action = button.dataset.action;
+    
+    requestAnimationFrame(() => {
+        if (action) {
+            handleAction(action);
+        } else {
+            handleNumber(buttonText);
+        }
+    });
+}, 50);
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    preloadSounds();
+    
+    // Add touch event listeners
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd);
+    
+    // Add click event listeners
+    document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => handleButtonClick(button));
+    });
+    
+    // Handle orientation changes
+    window.addEventListener('orientationchange', debounce(() => {
+        // Reset any necessary states
+        document.querySelector('.display').value = '';
+    }, 250));
+});
 
 // Set initial volumes
 function setVolume(element, volume) {
@@ -330,46 +414,6 @@ setVolume(operatorTap, 0.4);
 setVolume(functionTap, 0.3);
 setVolume(memoryTap, 0.4);
 setVolume(clearTap, 0.5);
-
-// Update button click handler
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Add pressed class for visual feedback
-        button.classList.add('pressed');
-        
-        // Play appropriate sound based on button type
-        if (button.classList.contains('number-btn')) {
-            playSound(numberTap);
-        } else if (button.classList.contains('operator-btn')) {
-            playSound(operatorTap);
-        } else if (button.classList.contains('function-btn')) {
-            playSound(functionTap);
-        } else if (button.classList.contains('memory-btn')) {
-            playSound(memoryTap);
-        } else if (button.classList.contains('clear-btn')) {
-            playSound(clearTap);
-        } else {
-            playSound(buttonTapSound);
-        }
-        
-        // Remove pressed class after animation
-        setTimeout(() => {
-            button.classList.remove('pressed');
-        }, 100);
-        
-        const buttonText = button.textContent;
-        const action = button.dataset.action;
-        
-        // Use requestAnimationFrame for smoother UI updates
-        requestAnimationFrame(() => {
-            if (action) {
-                handleAction(action);
-            } else {
-                handleNumber(buttonText);
-            }
-        });
-    });
-});
 
 // Add keyboard support
 document.addEventListener('keydown', (event) => {
