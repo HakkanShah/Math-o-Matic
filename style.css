@@ -76,7 +76,7 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Add tooltip styles */
+
 .theme-toggle::before {
     content: 'Drag me anywhere!😊';
     position: absolute;
@@ -118,7 +118,7 @@ body {
     visibility: visible;
 }
 
-/* Hide tooltip after 5 seconds */
+
 .theme-toggle.hide-tooltip::before,
 .theme-toggle.hide-tooltip::after {
     opacity: 0;
