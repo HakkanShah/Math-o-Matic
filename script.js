@@ -19,6 +19,14 @@ const converterSwap = document.querySelector('.converter-swap');
 const converterClear = document.querySelector('.converter-clear');
 const converterCopy = document.querySelector('.converter-copy');
 
+// Sound elements
+const buttonTap = document.getElementById('buttonTap');
+const numberTap = document.getElementById('numberTap');
+const operatorTap = document.getElementById('operatorTap');
+const functionTap = document.getElementById('functionTap');
+const memoryTap = document.getElementById('memoryTap');
+const clearTap = document.getElementById('clearTap');
+
 let currentValue = '';
 let previousValue = '';
 let operation = null;
@@ -303,21 +311,51 @@ tabButtons.forEach(tab => {
     });
 });
 
+// Play sound function
+function playSound(soundElement) {
+    if (soundElement.readyState >= 2) {
+        soundElement.currentTime = 0;
+        soundElement.play().catch(() => {});
+    }
+}
+
+// Set initial volumes
+function setVolume(element, volume) {
+    element.volume = volume; // 0.0 to 1.0
+}
+
+// Set volumes for different sounds
+setVolume(numberTap, 0.3);
+setVolume(operatorTap, 0.4);
+setVolume(functionTap, 0.3);
+setVolume(memoryTap, 0.4);
+setVolume(clearTap, 0.5);
+
+// Update button click handler
 buttons.forEach(button => {
     button.addEventListener('click', () => {
-        // Play sound with reduced latency
-        if (buttonTapSound.readyState >= 2) {
-            buttonTapSound.currentTime = 0;
-            buttonTapSound.play().catch(() => {});
-        }
-        
         // Add pressed class for visual feedback
         button.classList.add('pressed');
         
-        // Remove pressed class after 1 second
+        // Play appropriate sound based on button type
+        if (button.classList.contains('number-btn')) {
+            playSound(numberTap);
+        } else if (button.classList.contains('operator-btn')) {
+            playSound(operatorTap);
+        } else if (button.classList.contains('function-btn')) {
+            playSound(functionTap);
+        } else if (button.classList.contains('memory-btn')) {
+            playSound(memoryTap);
+        } else if (button.classList.contains('clear-btn')) {
+            playSound(clearTap);
+        } else {
+            playSound(buttonTapSound);
+        }
+        
+        // Remove pressed class after animation
         setTimeout(() => {
             button.classList.remove('pressed');
-        }, 1000);
+        }, 100);
         
         const buttonText = button.textContent;
         const action = button.dataset.action;
