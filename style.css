@@ -175,7 +175,7 @@ body {
     background: var(--secondary);
 }
 
-/* Light and Dark Icons */
+
 .theme-toggle .light,
 .theme-toggle .dark {
     position: absolute;
