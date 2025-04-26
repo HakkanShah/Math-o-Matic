@@ -368,7 +368,7 @@ button.pressed::after {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Dark theme specific pressed effects */
+
 [data-theme="dark"] button.pressed {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
