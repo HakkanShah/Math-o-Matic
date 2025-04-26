@@ -320,7 +320,7 @@ button {
     isolation: isolate;
 }
 
-/* Add pressed state styles */
+
 button.pressed {
     transform: scale(0.95);
     filter: brightness(0.9);
