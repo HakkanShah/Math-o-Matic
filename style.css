@@ -527,7 +527,7 @@ button:active::after {
     box-shadow: 0 0 30px rgba(255, 149, 0, 0.5);
 }
 
-/* Mobile optimizations */
+
 @media (max-width: 480px) {
     button::before,
     button::after {
