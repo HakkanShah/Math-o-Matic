@@ -569,7 +569,6 @@ button:active::after {
         transition: all 0.1s ease;
     }
     
-    /* Special pressed effects for different button types on mobile */
     .number-btn.pressed {
         background: var(--number-bg);
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
