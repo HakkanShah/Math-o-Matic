@@ -9,7 +9,6 @@ const memoryStatus = document.querySelector('.memory-status');
 const radDegDisplay = document.querySelector('.rad-deg');
 const buttonTapSound = document.getElementById('buttonTap');
 
-// Unit Converter Variables
 const converterType = document.querySelector('.converter-type');
 const converterValue = document.querySelector('.converter-value');
 const converterResult = document.querySelector('.converter-result');
