@@ -87,7 +87,7 @@ function drag(e) {
             currentY = e.clientY - initialY;
         }
 
-        // Get button dimensions
+        
         const buttonRect = themeToggle.getBoundingClientRect();
         const buttonWidth = buttonRect.width;
         const buttonHeight = buttonRect.height;
