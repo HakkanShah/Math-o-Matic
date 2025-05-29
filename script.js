@@ -113,7 +113,7 @@ function drag(e) {
     }
 }
 
-// Add touch feedback
+
 themeToggle.addEventListener('touchstart', () => {
     if (navigator.vibrate) {
         navigator.vibrate(10);
