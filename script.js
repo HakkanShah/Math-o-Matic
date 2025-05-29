@@ -35,7 +35,6 @@ let isRadianMode = true;
 let expression = '';
 let isDarkMode = true;
 
-// Add drag functionality to theme toggle
 const themeToggle = document.querySelector('.theme-toggle');
 let isDragging = false;
 let currentX;
