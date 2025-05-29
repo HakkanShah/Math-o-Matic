@@ -68,7 +68,7 @@ function dragEnd() {
     initialY = currentY;
     isDragging = false;
     themeToggle.classList.remove('dragging');
-    // Add haptic feedback for mobile
+    
     if (navigator.vibrate) {
         navigator.vibrate(5);
     }
