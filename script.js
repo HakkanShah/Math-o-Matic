@@ -92,7 +92,7 @@ function drag(e) {
         const buttonWidth = buttonRect.width;
         const buttonHeight = buttonRect.height;
         
-        // Get window dimensions
+        
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
