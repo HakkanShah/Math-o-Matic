@@ -97,7 +97,7 @@ function drag(e) {
         const maxX = (windowWidth - buttonWidth) / 2;
         const maxY = windowHeight - buttonHeight - 20;
         
-        // Constrain position within bounds
+        
         currentX = Math.max(-maxX, Math.min(maxX, currentX));
         currentY = Math.max(-maxY, Math.min(0, currentY));
 
