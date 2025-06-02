@@ -61,7 +61,6 @@ function dragStart(e) {
         }
     }
 }
-
 function dragEnd() {
     initialX = currentX;
     initialY = currentY;
