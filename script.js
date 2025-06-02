@@ -110,7 +110,6 @@ function drag(e) {
     }
 }
 
-
 themeToggle.addEventListener('touchstart', () => {
     if (navigator.vibrate) {
         navigator.vibrate(10);
