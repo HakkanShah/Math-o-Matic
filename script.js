@@ -115,7 +115,6 @@ themeToggle.addEventListener('touchstart', () => {
     }
 });
 
-// Update loadPosition for better mobile handling
 function loadPosition() {
     const savedPosition = localStorage.getItem('themeTogglePosition');
     if (savedPosition) {
