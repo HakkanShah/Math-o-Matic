@@ -71,7 +71,6 @@ function dragEnd() {
         navigator.vibrate(5);
     }
 }
-
 function drag(e) {
     if (isDragging) {
         e.preventDefault();
