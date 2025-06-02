@@ -55,7 +55,7 @@ function dragStart(e) {
     if (e.target === themeToggle || themeToggle.contains(e.target)) {
         isDragging = true;
         themeToggle.classList.add('dragging');
-        // Add haptic feedback for mobile
+        
         if (navigator.vibrate) {
             navigator.vibrate(10);
         }
