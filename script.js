@@ -92,7 +92,7 @@ function drag(e) {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // Calculate maximum allowed positions
+        
         const maxX = (windowWidth - buttonWidth) / 2;
         const maxY = windowHeight - buttonHeight - 20;
         
