@@ -108,7 +108,6 @@ function drag(e) {
         setTranslate(currentX, currentY, themeToggle);
     }
 }
-
 themeToggle.addEventListener('touchstart', () => {
     if (navigator.vibrate) {
         navigator.vibrate(10);
