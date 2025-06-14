@@ -65,7 +65,7 @@ function dragEnd() {
     initialX = currentX;
     initialY = currentY;
     isDragging = false;
-    themeToggle.classList.remove('dragging');
+   themeToggle.classList.remove('dragging');
     
     if (navigator.vibrate) {
         navigator.vibrate(5);
