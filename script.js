@@ -100,7 +100,6 @@ function drag(e) {
 
         xOffset = currentX;
         yOffset = currentY;
-
         
         themeToggle.style.transition = 'none';
         setTranslate(currentX, currentY, themeToggle);
