@@ -151,7 +151,6 @@ themeToggle.addEventListener("mousedown", dragStart, false);
 document.addEventListener("mouseup", dragEnd, false);
 document.addEventListener("mousemove", drag, false);
 
-// Save position to localStorage
 function savePosition() {
     localStorage.setItem('themeTogglePosition', JSON.stringify({
         x: xOffset,
