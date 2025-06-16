@@ -17,7 +17,6 @@ const converterSwap = document.querySelector('.converter-swap');
 const converterClear = document.querySelector('.converter-clear');
 const converterCopy = document.querySelector('.converter-copy');
 
-// Sound elements
 const buttonTap = document.getElementById('buttonTap');
 const numberTap = document.getElementById('numberTap');
 const operatorTap = document.getElementById('operatorTap');
