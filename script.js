@@ -124,7 +124,7 @@ function loadPosition() {
         const maxX = (windowWidth - buttonRect.width) / 2;
         const maxY = windowHeight - buttonRect.height - 20;
         
-        // Ensure loaded position is within webpage bounds
+       
         xOffset = Math.max(-maxX, Math.min(maxX, position.x));
         yOffset = Math.max(-maxY, Math.min(0, position.y));
         
