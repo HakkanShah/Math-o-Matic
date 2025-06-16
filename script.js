@@ -143,7 +143,6 @@ function setTranslate(xPos, yPos, el) {
     el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
 }
 
-// Add event listeners for drag functionality
 themeToggle.addEventListener("touchstart", dragStart, false);
 themeToggle.addEventListener("touchend", dragEnd, false);
 themeToggle.addEventListener("touchmove", drag, false);
