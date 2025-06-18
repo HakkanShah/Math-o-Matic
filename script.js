@@ -119,7 +119,7 @@ function loadPosition() {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-       
+     
         const maxX = (windowWidth - buttonRect.width) / 2;
         const maxY = windowHeight - buttonRect.height - 20;
         
