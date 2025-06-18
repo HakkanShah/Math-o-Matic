@@ -131,7 +131,7 @@ function loadPosition() {
         themeToggle.style.transition = 'transform 0.2s ease';
         setTranslate(xOffset, yOffset, themeToggle);
         
-        // Remove transition after initial position is set
+        
         setTimeout(() => {
             themeToggle.style.transition = 'box-shadow 0.2s ease';
         }, 200);
