@@ -160,7 +160,7 @@ function savePosition() {
 themeToggle.addEventListener("mouseup", savePosition);
 themeToggle.addEventListener("touchend", savePosition);
 
-// Load saved position when page loads
+
 document.addEventListener('DOMContentLoaded', loadPosition);
 
 // Unit Conversion Data
