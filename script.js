@@ -163,7 +163,6 @@ themeToggle.addEventListener("touchend", savePosition);
 
 document.addEventListener('DOMContentLoaded', loadPosition);
 
-// Unit Conversion Data
 const unitConversions = {
     length: {
         units: ['Meters', 'Kilometers', 'Centimeters', 'Millimeters', 'Miles', 'Yards', 'Feet', 'Inches'],
