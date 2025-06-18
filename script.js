@@ -157,7 +157,6 @@ function savePosition() {
     }));
 }
 
-// Add event listener for saving position
 themeToggle.addEventListener("mouseup", savePosition);
 themeToggle.addEventListener("touchend", savePosition);
 
