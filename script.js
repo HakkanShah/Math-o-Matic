@@ -127,7 +127,7 @@ function loadPosition() {
         xOffset = Math.max(-maxX, Math.min(maxX, position.x));
         yOffset = Math.max(-maxY, Math.min(0, position.y));
         
-        // Add smooth transition for initial position
+       
         themeToggle.style.transition = 'transform 0.2s ease';
         setTranslate(xOffset, yOffset, themeToggle);
         
