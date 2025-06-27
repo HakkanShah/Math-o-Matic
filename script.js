@@ -50,7 +50,6 @@ function dragStart(e) {
         initialX = e.clientX - xOffset;
         initialY = e.clientY - yOffset;
     }
-
     if (e.target === themeToggle || themeToggle.contains(e.target)) {
         isDragging = true;
         themeToggle.classList.add('dragging');
