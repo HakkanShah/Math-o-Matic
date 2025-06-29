@@ -159,7 +159,6 @@ function savePosition() {
 themeToggle.addEventListener("mouseup", savePosition);
 themeToggle.addEventListener("touchend", savePosition);
 
-
 document.addEventListener('DOMContentLoaded', loadPosition);
 
 const unitConversions = {
