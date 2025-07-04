@@ -294,7 +294,6 @@ tabButtons.forEach(tab => {
     });
 });
 
-// Play sound function
 function playSound(soundElement) {
     if (soundElement.readyState >= 2) {
         soundElement.currentTime = 0;
