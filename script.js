@@ -263,7 +263,7 @@ tabButtons.forEach(tab => {
             tabButtons.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             
-            // Hide all sections first
+            
             standardButtons.classList.remove('active');
             scientificButtons.classList.remove('active');
             document.querySelector('.buttons.converter').classList.remove('active');
