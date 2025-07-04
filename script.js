@@ -320,7 +320,7 @@ buttons.forEach(button => {
         // Add pressed class for visual feedback
         button.classList.add('pressed');
         
-        // Play appropriate sound based on button type
+        
         if (button.classList.contains('number-btn')) {
             playSound(numberTap);
         } else if (button.classList.contains('operator-btn')) {
