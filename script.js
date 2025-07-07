@@ -150,7 +150,7 @@ document.addEventListener("mouseup", dragEnd, false);
 document.addEventListener("mousemove", drag, false);
 
 function savePosition() {
-    localStorage.setItem('themeTogglePosition', JSON.stringify({
+   localStorage.setItem('themeTogglePosition', JSON.stringify({
         x: xOffset,
         y: yOffset
     }));
