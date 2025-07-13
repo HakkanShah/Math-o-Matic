@@ -155,7 +155,6 @@ function savePosition() {
         y: yOffset
     }));
 }
-
 themeToggle.addEventListener("mouseup", savePosition);
 themeToggle.addEventListener("touchend", savePosition);
 
