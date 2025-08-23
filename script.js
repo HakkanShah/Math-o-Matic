@@ -1142,5 +1142,4 @@ function copyResult() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeConverter();
 });
-
 updateMemoryStatus();
