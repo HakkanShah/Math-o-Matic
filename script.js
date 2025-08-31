@@ -136,7 +136,6 @@ function loadPosition() {
         }, 200);
     }
 }
-
 function setTranslate(xPos, yPos, el) {
     el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
 }
