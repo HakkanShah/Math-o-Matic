@@ -262,7 +262,7 @@ tabButtons.forEach(tab => {
             tab.classList.add('active');
             
         
-           standardButtons.classList.remove('active');
+          standardButtons.classList.remove('active');
             scientificButtons.classList.remove('active');
             document.querySelector('.buttons.converter').classList.remove('active');
             
