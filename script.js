@@ -317,7 +317,7 @@ buttons.forEach(button => {
         // Add pressed class for visual feedback
         button.classList.add('pressed');
        
-       
+      
         if (button.classList.contains('number-btn')) {
             playSound(numberTap);
         } else if (button.classList.contains('operator-btn')) {
