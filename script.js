@@ -1102,7 +1102,6 @@ function convertTemperature(value, fromUnit, toUnit) {
             return celsius + 273.15;
     }
 }
-
 // Swap Units
 function swapUnits() {
     if (document.querySelector('.buttons.converter').classList.contains('active')) {
