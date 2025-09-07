@@ -264,7 +264,7 @@ tabButtons.forEach(tab => {
         
           standardButtons.classList.remove('active');
             scientificButtons.classList.remove('active');
-            document.querySelector('.buttons.converter').classList.remove('active');
+           document.querySelector('.buttons.converter').classList.remove('active');
             
             // Show selected section
             if (tab.dataset.tab === 'standard') {
